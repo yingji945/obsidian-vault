@@ -1,0 +1,9 @@
+{
+  "promptDelete": false,
+  "alwaysUpdateLinks": true,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "笔记",
+  "attachmentFolderPath": "附件",
+  "useMarkdownLinks": true,
+  "showUnsupportedFiles": true
+}

@@ -62,9 +62,9 @@ total_ecmdty_payable_money <> 0  -- 剔除门店兑换单
 ```
 
 ## 表结构速查
-- [[dws_eorder 电商订单表]]
-- [[fact_dwd_log_c_luckinpop_detail 埋点表]]
-- [[t_wecom_external_user 企业微信客户表]]
+- 完整字段见 [[数据字典]]
 
 ---
 > 遇到新的坑随时补充
+>
+> 关联：[[知识库首页]] · [[我的判断标准]]（你的SQL品味） · [[数据字典]] · [[运营数据分析方法论]]

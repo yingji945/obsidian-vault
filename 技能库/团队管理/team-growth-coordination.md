@@ -187,6 +187,6 @@ Use this skill when:
 
 ## References
 
-- Obsidian: `企业沉淀/2026-07-21-超级个体到超级团队-协调者生长框架.md`
+- Obsidian: `企业沉淀/02-团队协作协议/超级个体到超级团队-协调者生长框架.md`
 - 腾讯研究院《从超级个体到超级团队》（2026年）
 - Hermes session: omt_193bebfde38f5cbb (2026-07-21)

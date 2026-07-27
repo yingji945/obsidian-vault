@@ -128,4 +128,4 @@ where event_code = 'app_start'
     or prop_query_source not in ('DS-GZH17','DS-GZH19' /*...投放列表*/));
 ```
 
-关联：[[fact_dwd_log_c_luckinpop_detail_d_inc]] · [[数据字典索引]]
+关联：[[fact_dwd_log_c_luckinpop_detail_d_inc]] · [[ods_log_t_hmonitor_track_event]]（数据源ODS） · [[数据字典索引]]

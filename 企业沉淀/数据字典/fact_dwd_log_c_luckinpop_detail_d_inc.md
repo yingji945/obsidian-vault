@@ -98,4 +98,4 @@ source: 用户提供 @ 2026-07-24
 - **`platform` 是整数**，`1`=iOS, `2`=安卓, `3`=小程序 — 注意和 `t_third_parent_order` 的字符串 `platform` 类型不同
 - **`event_time` 是时间戳（bigint）**，`event_time_form` 是格式化后的日期字符串，取事件日期优先用 `event_time_form`
 
-关联：[[fact_dwd_log_c_start_retention_detail_d_inc]] · [[数据字典索引]]
+关联：[[fact_dwd_log_c_start_retention_detail_d_inc]] · [[ods_log_t_hmonitor_track_event]]（数据源ODS） · [[数据字典索引]]

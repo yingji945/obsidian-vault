@@ -6,6 +6,32 @@ tags: [个人, SQL, 技能]
 
 # SQL 经验库
 
+## 常用表结构
+
+### 企微加好友明细 `dw_dwd.dwd_mg_tch_wecom_user_action_d_inc`
+
+> 社群-加好友明细记录，lucky/luna（企业微信客户历史）
+
+```sql
+-- 表 dw_dwd.dwd_mg_tch_wecom_user_action_d_inc
+SELECT
+  id,              -- 自增主键
+  lucky_user_id,   -- 服务人员的user id
+  mem_id,          -- 用户id
+  lucky_user_name, -- 服务人员名称
+  external_user_id,-- 外部联系人userid
+  external_user_name, -- 外部联系人名称
+  wx_unionid,      -- 微信unionid
+  event_type,      -- 事件的类型
+  event_time,      -- 时间发生时间
+  state,           -- 加好友的渠道
+  brand_type,      -- 品牌类型 LK001 luckin coffee / LK002 小鹿茶
+  created_time,    -- 创建时间
+  modified_time    -- 修改时间
+FROM
+  dw_dwd.dwd_mg_tch_wecom_user_action_d_inc
+```
+
 ## 基础规范
 
 ### 日期写法

@@ -66,6 +66,53 @@ FROM
 
 > 🔗 关联项目：[[一物一码索引]]
 
+### RTD 瓶盖复购活动维表 `dw_dim.dim_inst_rtd_cap_activity_d_his`
+
+> RTD 瓶盖复购活动维表（即享业务）。活动配置层面的维度表，定义活动的基础规则、限制、展示信息。
+
+```sql
+-- 表 dw_dim.dim_inst_rtd_cap_activity_d_his
+SELECT
+  activity_id,               -- 活动 ID
+  activity_no,               -- 活动编号
+  activity_name,             -- 活动名称
+  activity_desc,             -- 活动规则说明
+  activity_start_time,       -- 活动开始时间
+  activity_end_time,         -- 活动结束时间
+  activity_status,           -- 活动状态 1未开始 2已开始 3已结束
+  enable_status,             -- 启用状态 1已新建 2已启用 3已停用
+  is_deleted,                -- 逻辑删除 0否 1是
+  marketing_scene,           -- 营销场景 CAP_INNER 瓶内营销
+  user_win_limit_type,       -- 单用户中奖次数限制类型 0不限 1限定
+  user_win_max_cnt,          -- 单用户最多中奖次数
+  daily_draw_limit_type,     -- 每人每天限抽奖频次限制类型 0不限 1限定
+  daily_draw_max_cnt,        -- 每人每天限抽奖频次次数
+  join_limit_type,           -- 每人限参与次数限制类型 0不限 1限定
+  join_max_cnt,              -- 每人限参与次数
+  risk_hit_action,           -- 命中风控后中奖设置 0不中奖 1命中默认奖品
+  is_new_user_must_win,      -- 新客必中 0否 1是
+  is_city_limited,           -- 发放城市是否限定 0不限 1限定
+  is_show_private_domain,    -- 是否展示加私域 0否 1是
+  private_domain_banner_url, -- 加私域展示图 URL
+  scan_redirect_url,         -- 瓶身码跳转 HTTPS 落地页
+  create_user_id,            -- 创建人编号
+  modify_user_id,            -- 修改人编号
+  create_user_name,          -- 创建人姓名
+  modify_user_name,          -- 修改人姓名
+  create_time,               -- 创建时间
+  modify_time,               -- 修改时间
+  bg_portrait_url,           -- 活动背景竖图 URL
+  bg_landscape_url,          -- 活动背景横图 URL
+  lottery_animation_url,     -- 抽奖动效 URL
+  lottery_animation_duration,-- 抽奖动效时长(毫秒)
+  bg_color,                  -- 背景色#RRGGBB
+  no_win_img_url             -- 未中奖大图 URL
+FROM
+  dw_dim.dim_inst_rtd_cap_activity_d_his
+```
+
+> 🔗 关联项目：[[一物一码索引]]
+
 ### 企微加好友明细 `dw_dwd.dwd_mg_tch_wecom_user_action_d_inc`
 
 > 社群-加好友明细记录，lucky/luna（企业微信客户历史）

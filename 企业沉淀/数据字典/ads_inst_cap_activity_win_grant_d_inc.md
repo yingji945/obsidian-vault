@@ -11,6 +11,19 @@ source: 用户提供 @ 2026-07-29
 
 > 一物一码项目核心 ADS 表，覆盖从参与→中奖→膨胀→履约全链路。
 
+## 关联键
+
+| 关联字段 | 关联表 | 说明 |
+|:--------|:------|:----|
+| `activity_id` / `activity_no` | [[dim_inst_rtd_cap_activity_d_his]] | 活动维表 |
+
+## 使用注意点
+
+- 一物一码项目的**核心宽表**，写分析 SQL 优先从这查
+- `participate_time` 适合做时间筛选，`win_time` 可能滞后
+- `fulfillment_fail_code` 不为空表示履约失败，需要关注
+- `is_expand = 1` 表示用户选择了膨胀，膨胀后的奖品在 `expand_prize_name`
+
 ## 表结构（39 字段）
 
 ### 参与标识

@@ -56,4 +56,4 @@ where t.state = '电商资源-电商弹窗-1分钱杯子'
   and t.wx_unionid <> '';
 ```
 
-关联：[[t_wecom_external_user]] · [[数据字典索引]]
+关联：[[t_wecom_external_user]] · [[dwd_mg_tch_wecom_user_action_d_inc]] · [[数据字典索引]]

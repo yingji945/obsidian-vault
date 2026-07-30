@@ -8,6 +8,64 @@ tags: [个人, SQL, 技能]
 
 ## 常用表结构
 
+### 瓶盖扫码活动宽表 `dw_ads.ads_inst_cap_activity_win_grant_d_inc`
+
+> 即享-瓶盖扫码活动参与及中奖宽表。一物一码项目核心 ADS 表，覆盖从参与→中奖→膨胀→履约全链路。
+
+```sql
+-- 表 dw_ads.ads_inst_cap_activity_win_grant_d_inc
+SELECT
+  participate_id,             -- 活动参与记录 ID
+  participate_time,           -- 参与时间
+  activity_id,                -- 活动 ID
+  activity_no,                -- 活动编号
+  activity_name,              -- 活动名称
+  mem_id,                     -- 会员 ID
+  scan_id,                    -- 扫码 ID
+  participate_phase,          -- 参与阶段
+  layer_break_code,           -- 拦截层诊断码
+  hit_result,                 -- 命中结果
+  record_id,                  -- 用户中奖记录 ID
+  activity_record_no,         -- 活动记录编号
+  win_time,                   -- 中奖时间
+  claim_time,                 -- 路径确认时间
+  prize_row_id,               -- 命中基础奖品行 ID
+  prize_name,                 -- 奖品名称
+  base_content_type,          -- 基础内容类型
+  base_grant_mode,            -- 基础获得方式
+  base_grant_mode_snap,       -- 基础获得方式快照
+  is_expand_support,          -- 是否支持膨胀
+  expand_option_id,           -- 膨胀选项 ID
+  exp_prize_row_id,           -- 膨胀对应奖品行 ID
+  is_expand,                  -- 是否膨胀获得
+  expand_prize_name,          -- 膨胀奖品名称
+  expand_target_type,         -- 膨胀目标类型
+  expand_grant_mode,          -- 膨胀获得方式
+  final_grant_mode,           -- 最终获得方式
+  fulfillment_phase,          -- 履约阶段
+  grant_item_cnt_snap,        -- 发放明细数量快照
+  grant_item_cnt,             -- 实际发放明细数量
+  redpack_grant_cnt,          -- 红包发放数量
+  inst_coupon_grant_cnt,      -- 即时券发放数量
+  cfcoupon_grant_cnt,         -- 咖啡库券发放数量
+  coffee_store_coupon_grant_cnt, -- 咖啡店券发放数量
+  first_grant_time,           -- 首次发放时间
+  last_grant_time,            -- 最后发放时间
+  redpack_instance_cnt,       -- 红包实例数量
+  redpack_transferred_cnt,    -- 红包已转账数量
+  redpack_not_transferred_cnt,-- 红包未转账数量
+  redpack_transferred_amt,    -- 红包已转账金额
+  last_transfer_done_time,    -- 最后转账完成时间
+  fulfillment_fail_code,      -- 履约失败码
+  fulfillment_fail_reason,    -- 履约失败原因
+  fulfillment_fail_time,      -- 履约失败时间
+  fulfillment_retry_cnt       -- 履约重试次数
+FROM
+  dw_ads.ads_inst_cap_activity_win_grant_d_inc
+```
+
+> 🔗 关联项目：[[一物一码索引]]
+
 ### 企微加好友明细 `dw_dwd.dwd_mg_tch_wecom_user_action_d_inc`
 
 > 社群-加好友明细记录，lucky/luna（企业微信客户历史）

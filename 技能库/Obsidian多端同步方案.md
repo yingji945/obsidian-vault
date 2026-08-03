@@ -1,13 +1,30 @@
 ---
 created: 2026-07-29
+updated: 2026-08-03
 tags: [Obsidian, 同步, 多端, 技能库]
 ---
 
 # Obsidian 多端同步方案
 
-> Mac + GitHub + 服务器 + 手机 四端知识库同步
+> Mac + GitHub + 服务器 + 手机 四端知识库同步。
+>
+> 📌 2026-08-03 合并自三篇：本文件（操作手册）+ 个人成长/Obsidian跨设备同步方案（方案选型）+ 技能库/Obsidian工作流说明（工作机制），原文件已归档。
 
-## 当前已配好的
+---
+
+## 一、方案选型对比（为什么是现在这套）
+
+| 方案 | 费用 | 体验 | 推荐度 |
+|:----|:----|:----|:------|
+| **Working Copy (iOS) + Obsidian** | Working Copy 付费（~$20） | ⭐⭐⭐⭐⭐ 完整读写 | ⭐ **首选（当前已实施）** |
+| **Obsidian 官方同步** | $4/月 | ⭐⭐⭐⭐⭐ 最简单 | ⭐ 省心（手机端完整体验时考虑） |
+| **GitHub 网页编辑** | 免费 | ⭐⭐ 只能看+单文件编辑 | 应急用 |
+| **iCloud** | 免费 | ⭐⭐⭐ 有冲突风险 | 备选 |
+
+- **当前已实施**：Obsidian Git（Mac）+ GitHub 私有仓库 + Working Copy（iOS）+ 服务器 cron，免费方案跑通全链路。
+- 如果未来想要**手机端完整体验**（图谱/双向链接交互）→ 可升级 Obsidian Sync（$4/月）。
+
+## 二、当前已配置的
 
 | 端 | 同步方式 | 状态 | 最后配置时间 |
 |:--|:--------|:----|:-----------|
@@ -16,7 +33,7 @@ tags: [Obsidian, 同步, 多端, 技能库]
 | ☁️ **GitHub 远程** | `github.com/yingji945/obsidian-vault.git`（私有） | ✅ 中央仓库 | 2026-07-28 |
 | 📱 **手机（iOS）** | Working Copy 手动 clone → Obsidian 打开 | ✅ 已配置 | 2026-07-29 |
 
-## 架构
+## 三、架构
 
 ```mermaid
 flowchart LR
@@ -30,7 +47,7 @@ flowchart LR
     Phone <--> GitHub
 ```
 
-## Mac 设置（已完成）
+## 四、Mac 设置（已完成）
 
 ### Obsidian Git 插件配置
 
@@ -52,7 +69,7 @@ flowchart LR
 | **推送** | `Obsidian Git: Push` |
 | **查看状态** | `Obsidian Git: Check status` |
 
-## 服务器设置（已完成）
+## 五、服务器设置（已完成）
 
 ### GitHub 远程仓库
 
@@ -70,12 +87,14 @@ hermes cron create "0 * * * *" \
   --deliver local
 ```
 
+> 冲突兜底：`git fetch origin main && git reset --hard origin/main`（以远程用户版本为准）。`ensure-sync.sh` 已废弃，不再使用。
+
 ### 知识库入库后自动 push（每晚 23:15）
 
 - 自动拉取 Jacob 沉淀通知 → 写 vault → auto push
-- 若 push 失败（GitHub 网络超时），跳过不阻塞，后续 cron 自动补推
+- 若 push 失败（GitHub 网络超时），跳过不阻塞，每小时 `git-push.sh` 自动重试
 
-## 手机端（iOS）设置
+## 六、手机端（iOS）设置
 
 ### 首次配置
 
@@ -102,7 +121,19 @@ Obsidian 编辑完 → 保存
 
 > ⚠️ 手机端没有自动 git 插件，每次编辑后需要手动推一次
 
-## 冲突处理原则
+## 七、同步机制与冲突处理
+
+### 数据流
+
+```
+Mac（Obsidian Git 插件，每15min auto commit & sync）
+  ↓
+GitHub 私有仓库 ←→ 服务器（每小时 pull；入库后 push，失败由 git-push.sh 重试）
+  ↓
+新电脑 / iPhone（clone/pull）
+```
+
+### 冲突处理原则
 
 | 场景 | 处理方式 |
 |:----|:--------|
@@ -111,9 +142,13 @@ Obsidian 编辑完 → 保存
 | **服务器新建的笔记 Mac 没有** | `git pull` 后自动出现 |
 | **手机改完推了，Mac 有冲突** | `git pull` 后手动解决冲突 |
 
-> **Mac 是权威端：** 如果同一个文件两边都改了，以 Mac 上的版本为准
+> **Mac 是权威端：** 如果同一个文件两边都改了，以 Mac 上的版本为准。服务器端遇冲突自动以远程（用户）版本为准（`git reset --hard origin/main`），暴力覆盖本地。
 
-## 首次使用流程（换电脑/重装）
+### 手动解决冲突（Mac 端）
+
+`Cmd + P` → `Git: Commit all changes` → 再 `Git: Pull`
+
+## 八、首次使用流程（换电脑/重装）
 
 ### 新电脑
 
@@ -132,8 +167,20 @@ Obsidian 编辑完 → 保存
 2. Working Copy 里 clone 仓库
 3. Obsidian 里打开
 
+## 九、vault 目录速览
+
+- `/个人成长/` — 可带走的认知
+- `/业务分析/` — 数据分析、活动复盘
+- `/企业沉淀/` — 流程规范、数据字典、数仓分层
+- `/项目沉淀/` — 按项目分类的专题知识
+- `/笔记/` — AI 日报等时效性内容
+- `/技能库/` — 系统怎么用（设计文档）
+- `/待办/` — 当前任务清单
+- `/归档/` — 已过期内容
+
 ## 关联 vault 文件
 
+- [[四层记忆架构与AI记忆方案一览]] — 四层记忆架构
 - [[技能库/Hermes多模型路由配置方案]]
 - [[技能库/SQL经验库]]
 - [[技能库/用户分层SQL模板]]
@@ -142,4 +189,4 @@ Obsidian 编辑完 → 保存
 
 ---
 
-> 📌 2026-07-29 初版
+> 📌 2026-07-29 初版 → 2026-08-03 合并三篇为一

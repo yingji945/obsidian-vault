@@ -1,6 +1,6 @@
 ---
 created: 2026-07-24
-updated: 2026-07-24
+updated: 2026-08-05
 tags: [企业, 数据, 字典, 电商]
 field_status: ✅ 完整
 source: 用户提供 @ 2026-07-24
@@ -26,7 +26,7 @@ source: 用户提供 @ 2026-07-24
 
 |  #  | 字段名              | 类型      | 说明                                                                                               |
 | :-: | :--------------- | :------ | :----------------------------------------------------------------------------------------------- |
-|  6  | `eorder_status`  | varchar | 订单状态：`1`=待付款, `2`=待发货, `3`=待收货, `4`=交易关闭, `5`=订单取消, `6`=订单取消售后中, `7`=部分退款成功, `8`=已签收, `9`=已签收售后中 |
+|  6  | `eorder_status`  | varchar | 订单状态：`1`=待付款(CREATED), `2`=待发货(PAYED), `3`=待收货(UNRECEIVED), `4`=交易关闭(CLOSE), `5`=订单取消(CANCELED), `6`=订单取消售后中(AFTERSALE), `7`=部分退款成功, `8`=已签收(COMPLETE), `9`=已签收售后中(COMPLETE_AFTERSALE), `10`=待收货售后中(UNRECEIVED_AFTERSALE, 2026-08 扩充) |
 |  7  | `refund_status`  | varchar | 退款状态：`1`=不可退款, `2`=可退款, `3`=已新建, `4`=已退款, `5`=部分退款                                               |
 |  8  | `invoice_status` | varchar | 发票状态：`1`=不可开票, `2`=可开票, `3`=已新建, `4`=已开票                                                         |
 |  9  | `payment_status` | varchar | 支付状态：`10`=待支付, `20`=已部分支付, `30`=已支付                                                              |
@@ -140,7 +140,8 @@ source: 用户提供 @ 2026-07-24
 ## 使用注意点
 
 - **全量快照表**：每天一张完整快照，**必须用 `dt` 分区过滤**（`dt = date_sub(current_date(), 1)`）
-- **有效订单**：`eorder_status IN (2,3,7,8,9)` — 待发货/待收货/部分退款成功/已签收/已签收售后中（排除 `1` 待付款、`4` 交易关闭、`5` 订单取消、`6` 取消售后中）
+- **有效订单**：`eorder_status IN (2,3,7,8,9,10)` — 待发货/待收货/部分退款成功/已签收/已签收售后中/待收货售后中（排除 `1` 待付款、`4` 交易关闭、`5` 订单取消、`6` 取消售后中；`10` 为 2026-08 扩充状态）
+- **自营口径**：瑞幸即享为自营商家，分析需加 `merchant_type = 0`（排除 POP 第三方）
 - **金额过滤**：`total_ecmdty_payable_money <> 0` 排除 0 元订单（无实际商品交易）
 - **支付时间**：分析日月时按 `eorder_pay_time`，不要用 `eorder_create_time`
 - **金额口径**：客单价分析用 `eorder_income`（订单收入）或 `total_ecmdty_payable_money`（商品应付），注意区分
@@ -161,7 +162,8 @@ select
   sum(eorder_income) / count(distinct mem_id) as avg_revenue_per_buyer
 from dw_dws.dws_eorder_eorder_d_his_combine
 where dt = date_sub(current_date(), 1)
-  and eorder_status in ('2','3','7','8','9')
+  and merchant_type = 0
+  and eorder_status in ('2','3','7','8','9','10')
   and total_ecmdty_payable_money <> 0
   and eorder_pay_time >= '2026-06-01'
   and eorder_pay_time < '2026-07-01'

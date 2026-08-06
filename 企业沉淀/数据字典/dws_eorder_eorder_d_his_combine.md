@@ -48,33 +48,33 @@ source: 用户提供 @ 2026-07-24
 
 ### 订单属性
 
-| # | 字段名 | 类型 | 说明 |
-|:-:|:------|:----|:-----|
-| 20 | `eorder_thirdparty_no` | varchar | 外部订单号 |
-| 21 | `comment_status` | varchar | 评价状态：`0`=未评价, `1`=已评价 |
-| 22 | `eorder_type` | varchar | 订单类型：`1`=电商, `2`=卡券, `3`=供应商 |
-| 23 | `parent_eorder_no` | varchar | 父订单号（子订单的上级） |
-| 24 | `sales_model` | varchar | 销售模式：`1`=普通销售, `2`=众筹销售, `3`=预售销售 |
-| 25 | `crowd_funding_status` | varchar | 众筹状态：`1`=待完成, `2`=已完成 |
-| 26 | `crowd_funding_result` | varchar | 众筹结果：`1`=成功, `2`=失败 |
-| 27 | `is_stock_up` | varchar | 是否开始备货：`0`=否, `1`=是 |
-| 28 | `is_delivery_overdue` | varchar | 是否发货逾期：`0`=否, `1`=是 |
-| 29 | `delivery_status` | varchar | 发货状态：`1`=待发货, `2`=已发货, `3`=已部分发货 |
-| 30 | `all_create_delivery` | varchar | 是否全部生成发货单：`0`=否, `1`=是 |
-| 31 | `pay_task_no` | varchar | 收款任务编号 |
-| 32 | `express_template_no` | varchar | 运费模板编号 |
-| 33 | `express_template_name` | varchar | 运费模板名称 |
-| 34 | `push_oms_flag` | varchar | 订单推送 OMS：`0`=未推送, `1`=e店宝, `2`=巨沃, `3`=旺店通 |
+|  #  | 字段名                     | 类型      | 说明                                         |
+| :-: | :---------------------- | :------ | :----------------------------------------- |
+| 20  | `eorder_thirdparty_no`  | varchar | 外部订单号                                      |
+| 21  | `comment_status`        | varchar | 评价状态：`0`=未评价, `1`=已评价                      |
+| 22  | `eorder_type`           | varchar | 订单类型：`1`=电商, `2`=卡券, `3`=供应商               |
+| 23  | `parent_eorder_no`      | varchar | 父订单号（子订单的上级）                               |
+| 24  | `sales_model`           | varchar | 销售模式：`1`=普通销售, `2`=众筹销售, `3`=预售销售          |
+| 25  | `crowd_funding_status`  | varchar | 众筹状态：`1`=待完成, `2`=已完成                      |
+| 26  | `crowd_funding_result`  | varchar | 众筹结果：`1`=成功, `2`=失败                        |
+| 27  | `is_stock_up`           | varchar | 是否开始备货：`0`=否, `1`=是                        |
+| 28  | `is_delivery_overdue`   | varchar | 是否发货逾期：`0`=否, `1`=是                        |
+| 29  | `delivery_status`       | varchar | 发货状态：`1`=待发货, `2`=已发货, `3`=已部分发货           |
+| 30  | `all_create_delivery`   | varchar | 是否全部生成发货单：`0`=否, `1`=是                     |
+| 31  | `pay_task_no`           | varchar | 收款任务编号                                     |
+| 32  | `express_template_no`   | varchar | 运费模板编号                                     |
+| 33  | `express_template_name` | varchar | 运费模板名称                                     |
+| 34  | `push_oms_flag`         | varchar | 订单推送 OMS：`0`=未推送, `1`=e店宝, `2`=巨沃, `3`=旺店通 |
 
 ### 商家信息
 
-| # | 字段名 | 类型 | 说明 |
-|:-:|:------|:----|:-----|
-| 35 | `merchant_id` | bigint | 店铺 ID |
-| 36 | `eshop_name` | varchar | 店铺名称 |
-| 37 | `merchant_name` | varchar | 商家名称 |
-| 38 | `merchant_code` | varchar | 商家编码 |
-| 39 | `merchant_type` | varchar | 店铺类型：`0`=自营商家, `1`=代销商家, `2`=POP 商家 |
+|  #  | 字段名             | 类型      | 说明                                  |
+| :-: | :-------------- | :------ | :---------------------------------- |
+| 35  | `merchant_id`   | bigint  | 店铺 ID                               |
+| 36  | `eshop_name`    | varchar | 店铺名称                                |
+| 37  | `merchant_name` | varchar | 商家名称                                |
+| 38  | `merchant_code` | varchar | 商家编码                                |
+| 39  | `merchant_type` | varchar | 店铺类型：`0`=自营商家, `1`=代销商家, `2`=POP 商家 |
 
 ### 金额字段
 

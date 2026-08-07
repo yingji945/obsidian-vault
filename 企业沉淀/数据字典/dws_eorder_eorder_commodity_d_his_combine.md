@@ -1,6 +1,6 @@
 ---
 created: 2026-08-05
-updated: 2026-08-05
+updated: 2026-08-07
 tags: [企业, 数据, 字典, 电商]
 field_status: ✅ 完整
 source: 用户提供 @ 2026-08-05
@@ -15,7 +15,7 @@ source: 用户提供 @ 2026-08-05
 - **粒度**：订单商品行（**一个订单可能多行商品**，主键 `eorder_ecmdty_id`）
 - 与 `dws_eorder_eorder_d_his_combine`（订单级）的关系：**1 订单 : N 商品行**，通过 `eorder_id` 关联
 - 用途：**商品维度分析**——SKU 销售、商品/品牌/类目渗透、赠品、营销分摊到商品行、售后
-- ⚠️ 该表未展示 `dt` 分区字段，但按 `d_his_combine` 同族命名应为**全量快照表 + 按日分区**（待确认）
+- **全量快照表，按日分区（dt）**（用户确认 2026-08-07）；字段清单未展示 `dt`，但按 `d_his_combine` 同族命名与快照语义推断为按日分区
 
 ## 表结构（82 字段）
 
@@ -70,7 +70,7 @@ source: 用户提供 @ 2026-08-05
 | 35 | `ecmdty_addition_money` | decimal | 附属费用 |
 | 36 | `ecmdty_payable_money` | decimal | 商品应付 |
 | 37 | `ecmdty_real_pay_money` | decimal | 商品实付 |
-| 38 | `ecmdty_real_income` | decimal | **商品收入**（行级收入，订单收入 = 商品行收入之和？需验证） |
+| 38 | `ecmdty_real_income` | decimal | **商品收入**（行级收入；⚠️ 与订单级收入**可能不一致**，暂不处理） |
 
 ### 优惠券
 
@@ -166,14 +166,14 @@ source: 用户提供 @ 2026-08-05
 ## 使用注意点
 
 - **商品行粒度**：一个订单多行商品时，`eorder_id` 重复；按订单统计需先 `GROUP BY eorder_id` 或 `DISTINCT`
-- **金额口径**：行级金额用 `ecmdty_real_income`（商品收入）；订单级收入 = 行收入之和（待验证一致性）
+- **金额口径**：行级金额用 `ecmdty_real_income`（商品收入）；⚠️ 订单级收入与行收入之和**可能不一致**（用户确认 2026-08-07，暂不处理；用数前先核对口径）
 - **有效订单**：`eorder_status IN ('2','3','7','8','9','10')`（与订单表一致，含 2026-08 扩充的 10 待收货售后中）
 - **自营口径**：`merchant_type = 0`（自营商家）
 - **赠品**：`is_gift = 1` 是赠品行，商品分析（销量/收入）注意是否排除
 - **分类**：三级分类（one/two/three_category_*），英文名/中文名齐备
 - **营销分摊**：`*_share_money` 字段为营销/优惠券按商品行分摊金额，可用于活动 ROI 的商品级归因
-- **⚠️ delivery_status 枚举与订单表不同**：本表 `1`=待发货, `2`=已新建, `3`=已发货, `4`=已签收；订单表 `dws_eorder_eorder_d_his_combine` 是 `1`=待发货, `2`=已发货, `3`=已部分发货——**同名不同义，勿混用**
-- **dt 分区**：字段清单未含 `dt`，但按 `d_his_combine` 命名应为全量快照按日分区（待确认）
+- **⚠️ delivery_status 枚举与订单表不同（已确认 2026-08-07）**：本表 `1`=待发货, `2`=已新建, `3`=已发货, `4`=已签收；订单表 `dws_eorder_eorder_d_his_combine` 是 `1`=待发货, `2`=已发货, `3`=已部分发货——**同名不同义，勿混用**
+- **dt 分区**：字段清单未含 `dt`；**全量快照表**（用户确认 2026-08-07），按日分区，取最新分区即当日全量
 
 ## 典型 SQL
 
@@ -188,7 +188,7 @@ SELECT
   COUNT(*) AS line_cnt,
   SUM(ecmdty_real_income) AS income
 FROM dw_dws.dws_eorder_eorder_commodity_d_his_combine
-WHERE dt = DATE_SUB(CURRENT_DATE(), 1)          -- 分区（若存在）
+WHERE dt = DATE_SUB(CURRENT_DATE(), 1)          -- 快照分区（全量快照表，取最新分区）
   AND merchant_type = 0
   AND eorder_status IN ('2','3','7','8','9','10')
   AND is_gift = 0

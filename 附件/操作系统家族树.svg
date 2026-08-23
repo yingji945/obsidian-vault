@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="690">
+<rect width="1140" height="690" fill="#f8f9fa" rx="10"/>
+<text x="570" y="40" text-anchor="middle" font-size="22" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">操作系统家族树 —— 不是一棵树，是几片森林</text>
+<text x="570" y="66" text-anchor="middle" font-size="13" fill="#666" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">Linux 是最大最开放的一片；但安卓/苹果/Windows 各有各的血统</text>
+<rect x="870" y="88" width="12" height="12" rx="2" fill="#a5d6a7" stroke="#43a047"/>
+<text x="887" y="98" font-size="11" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">开源</text>
+<rect x="936" y="88" width="12" height="12" rx="2" fill="#fff9c4" stroke="#fbc02d"/>
+<text x="953" y="98" font-size="11" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">半开</text>
+<rect x="1002" y="88" width="12" height="12" rx="2" fill="#ef9a9a" stroke="#e53935"/>
+<text x="1019" y="98" font-size="11" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">闭源</text>
+<rect x="1068" y="88" width="12" height="12" rx="2" fill="#eceff1" stroke="#90a4ae"/>
+<text x="1085" y="98" font-size="11" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">历史</text>
+<line x1="560" y1="127" x2="560" y2="160" stroke="#90a4ae" stroke-width="1.5"/>
+<line x1="300" y1="160" x2="820" y2="160" stroke="#90a4ae" stroke-width="1.5"/>
+<line x1="300" y1="160" x2="300" y2="163" stroke="#90a4ae" stroke-width="1.5"/>
+<line x1="820" y1="160" x2="820" y2="163" stroke="#90a4ae" stroke-width="1.5"/>
+<line x1="300" y1="207" x2="300" y2="240" stroke="#90a4ae" stroke-width="1.5"/>
+<line x1="210" y1="240" x2="300" y2="240" stroke="#90a4ae" stroke-width="1.5"/>
+<line x1="210" y1="240" x2="210" y2="243" stroke="#90a4ae" stroke-width="1.5"/>
+<line x1="210" y1="287" x2="210" y2="317" stroke="#90a4ae" stroke-width="1.5"/>
+<line x1="820" y1="207" x2="820" y2="240" stroke="#90a4ae" stroke-width="1.5"/>
+<line x1="680" y1="240" x2="950" y2="240" stroke="#90a4ae" stroke-width="1.5"/>
+<line x1="680" y1="240" x2="680" y2="243" stroke="#90a4ae" stroke-width="1.5"/>
+<line x1="950" y1="240" x2="950" y2="243" stroke="#90a4ae" stroke-width="1.5"/>
+<line x1="950" y1="287" x2="950" y2="317" stroke="#90a4ae" stroke-width="1.5"/>
+<rect x="465" y="83" width="190" height="44" rx="8" fill="#eceff1" stroke="#90a4ae" stroke-width="1.5"/><text x="560" y="99" text-anchor="middle" font-size="13" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">Unix (1969)</text><text x="560" y="118" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">AT&amp;T 贝尔实验室</text>
+<rect x="220" y="163" width="160" height="44" rx="8" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1.5"/><text x="300" y="179" text-anchor="middle" font-size="13" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">BSD (1977)</text><text x="300" y="198" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">Unix 嫡系 · 伯克利</text>
+<rect x="730" y="163" width="180" height="44" rx="8" fill="#a5d6a7" stroke="#43a047" stroke-width="1.5"/><text x="820" y="179" text-anchor="middle" font-size="13" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">Linux (1991)</text><text x="820" y="198" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">Linus 从零手写</text>
+<rect x="120" y="243" width="180" height="44" rx="8" fill="#fce4ec" stroke="#ef9a9a" stroke-width="1.5"/><text x="210" y="259" text-anchor="middle" font-size="13" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">NeXTSTEP (1988)</text><text x="210" y="278" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">乔布斯 · Mach + BSD</text>
+<rect x="580" y="243" width="200" height="44" rx="8" fill="#c8e6c9" stroke="#66bb6a" stroke-width="1.5"/><text x="680" y="259" text-anchor="middle" font-size="13" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">发行版</text><text x="680" y="278" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">Debian/Ubuntu/CentOS</text>
+<rect x="860" y="243" width="180" height="44" rx="8" fill="#fff9c4" stroke="#fbc02d" stroke-width="1.5"/><text x="950" y="259" text-anchor="middle" font-size="13" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">Android (2008)</text><text x="950" y="278" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">内核=Linux，上层谷歌自研</text>
+<rect x="105" y="317" width="210" height="56" rx="8" fill="#fff9c4" stroke="#fbc02d" stroke-width="1.5"/><text x="210" y="339" text-anchor="middle" font-size="13" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">macOS (2001) / iOS (2007)</text><text x="210" y="358" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">XNU 内核 = Mach + BSD</text>
+<rect x="845" y="317" width="210" height="56" rx="8" fill="#ffe082" stroke="#ffa726" stroke-width="1.5"/><text x="950" y="339" text-anchor="middle" font-size="13" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">老鸿蒙 2–4 (2019–24)</text><text x="950" y="358" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">Linux 内核 + AOSP</text>
+<text x="210" y="392" text-anchor="middle" font-size="10" fill="#777" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">苹果系：内核 Darwin 开源(APSL)，上层全闭源</text>
+<text x="950" y="392" text-anchor="middle" font-size="10" fill="#777" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">兼容安卓 App · 后被 NEXT 取代</text>
+<line x1="950" y1="382" x2="668" y2="490" stroke="#ffa726" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text x="820" y="412" text-anchor="middle" font-size="10" fill="#fb8c00" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">换代重写</text>
+<line x1="80" y1="435" x2="1060" y2="435" stroke="#bbb" stroke-width="1" stroke-dasharray="8 5"/>
+<text x="570" y="455" text-anchor="middle" font-size="13" font-weight="bold" fill="#888" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">—— 以下与 Unix / Linux 无血缘 ——</text>
+<rect x="145" y="477" width="210" height="56" rx="8" fill="#ef9a9a" stroke="#e53935" stroke-width="1.5"/><text x="250" y="499" text-anchor="middle" font-size="13" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">Windows (1985→NT 1993)</text><text x="250" y="518" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">微软从零写 · 从未开源</text>
+<rect x="465" y="477" width="210" height="56" rx="8" fill="#ffcc80" stroke="#fb8c00" stroke-width="1.5"/><text x="570" y="499" text-anchor="middle" font-size="13" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">鸿蒙 NEXT (2024)</text><text x="570" y="518" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">自研微内核 · 脱离 Linux</text>
+<rect x="785" y="477" width="210" height="56" rx="8" fill="#a5d6a7" stroke="#43a047" stroke-width="1.5"/><text x="890" y="499" text-anchor="middle" font-size="13" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">Fuchsia (谷歌)</text><text x="890" y="518" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">Zircon 微内核 · 开源不用 Linux</text>
+<text x="80" y="600" font-size="14" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">血统口诀：类Unix ≠ 基于Linux —— macOS 是 BSD 嫡系，Linux 是精神继承，Windows 是异族，鸿蒙NEXT 是自立门户</text>
+<text x="80" y="630" font-size="12.5" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">有趣：谷歌自己也在「去 Linux 化」（Fuchsia 不用 Linux 内核）；Windows 靠 WSL 跑 Linux 应用，只是「客居」，不是血缘</text>
+<text x="80" y="662" font-size="14" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">金句：操作系统不是一棵树，是几片互不相干的森林 —— Linux 是最大最开放的那片，但不是唯一的</text>
+</svg>

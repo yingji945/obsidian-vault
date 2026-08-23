@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="750">
+<rect width="1140" height="750" fill="#f8f9fa" rx="10"/>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#90a4ae"/></marker></defs>
+<text x="570" y="40" text-anchor="middle" font-size="22" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">互联网是怎么跑起来的</text>
+<text x="570" y="66" text-anchor="middle" font-size="13" fill="#666" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">互联网 = 一套共同语言（分层协议） + 一张全球接力路网（路由器）—— 没有任何人拥有它</text>
+<text x="100" y="98" font-size="15" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">① 共同语言：五层模型（每层只管自己那一层的事）</text>
+<rect x="100" y="115" width="560" height="38" rx="7" fill="#5c6bc0" opacity="0.88"/>
+<text x="118" y="140" font-size="13.5" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">应用层</text>
+<text x="210" y="140" font-size="12" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">HTTP / DNS / 微信</text>
+<text x="690" y="140" font-size="12.5" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">信的内容：网页、视频、消息</text>
+<rect x="100" y="159" width="560" height="38" rx="7" fill="#42a5f5" opacity="0.88"/>
+<text x="118" y="184" font-size="13.5" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">传输层</text>
+<text x="210" y="184" font-size="12" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">TCP / UDP</text>
+<text x="690" y="184" font-size="12.5" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">邮局分拣：可靠快递 or 平邮</text>
+<rect x="100" y="203" width="560" height="38" rx="7" fill="#26a69a" opacity="0.88"/>
+<text x="118" y="228" font-size="13.5" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">网络层</text>
+<text x="210" y="228" font-size="12" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">IP 地址 / 路由器</text>
+<text x="690" y="228" font-size="12.5" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">信封地址 + 路线规划（路由器看这层）</text>
+<rect x="100" y="247" width="560" height="38" rx="7" fill="#66bb6a" opacity="0.88"/>
+<text x="118" y="272" font-size="13.5" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">链路层</text>
+<text x="210" y="272" font-size="12" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">以太网 / WiFi</text>
+<text x="690" y="272" font-size="12.5" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">快递车在具体街道行驶（同一片区）</text>
+<rect x="100" y="291" width="560" height="38" rx="7" fill="#ffa726" opacity="0.88"/>
+<text x="118" y="316" font-size="13.5" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">物理层</text>
+<text x="210" y="316" font-size="12" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">光缆 / 网线 / 无线电</text>
+<text x="690" y="316" font-size="12.5" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">道路本身</text>
+<text x="100" y="348" font-size="12.5" fill="#666" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">关键：每一层只和上下层打交道 —— 分工明确，上层不用管下层怎么实现（就像写信不用懂邮政系统）</text>
+<text x="100" y="388" font-size="15" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">② 一次访问的旅程：输入 www.baidu.com 之后</text>
+<rect x="42" y="410" width="155" height="56" rx="8" fill="#e3f2fd" stroke="#42a5f5" stroke-width="1.5"/>
+<text x="119" y="434" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a237e" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">① 浏览器输入</text>
+<text x="119" y="453" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">你打的字变成请求</text>
+<line x1="197" y1="438" x2="222" y2="438" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="222" y="410" width="155" height="56" rx="8" fill="#e3f2fd" stroke="#42a5f5" stroke-width="1.5"/>
+<text x="299" y="434" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a237e" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">② DNS 查地址</text>
+<text x="299" y="453" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">baidu.com → IP</text>
+<line x1="377" y1="438" x2="402" y2="438" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="402" y="410" width="155" height="56" rx="8" fill="#e3f2fd" stroke="#42a5f5" stroke-width="1.5"/>
+<text x="479" y="434" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a237e" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">③ 打包分包</text>
+<text x="479" y="453" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">HTTP→TCP→IP，切小包</text>
+<line x1="557" y1="438" x2="582" y2="438" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="582" y="410" width="155" height="56" rx="8" fill="#e3f2fd" stroke="#42a5f5" stroke-width="1.5"/>
+<text x="659" y="434" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a237e" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">④ 路由器接力</text>
+<text x="659" y="453" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">你家→运营商→骨干网</text>
+<line x1="737" y1="438" x2="762" y2="438" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="762" y="410" width="155" height="56" rx="8" fill="#e3f2fd" stroke="#42a5f5" stroke-width="1.5"/>
+<text x="839" y="434" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a237e" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">⑤ 数据中心响应</text>
+<text x="839" y="453" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">百度服务器/CDN 返回</text>
+<line x1="917" y1="438" x2="942" y2="438" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="942" y="410" width="155" height="56" rx="8" fill="#e3f2fd" stroke="#42a5f5" stroke-width="1.5"/>
+<text x="1019" y="434" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a237e" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">⑥ 拆包重组</text>
+<text x="1019" y="453" text-anchor="middle" font-size="10" fill="#555" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">浏览器渲染出网页</text>
+<text x="100" y="505" font-size="13" font-weight="bold" fill="#1a237e" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">全程通常不到 0.1 秒</text>
+<text x="100" y="528" font-size="12.5" fill="#666" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">每个小包里装着：源 IP、目标 IP、序号、内容 —— 小包可各走各路，到站按序号拼回（设计初衷：军事抗毁，坏一条路走另一条）</text>
+<text x="100" y="575" font-size="15" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">③ 谁在管它 —— 没有老板的机器</text>
+<text x="100" y="606" font-size="12.5" fill="#444" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">标准靠共识：IETF 用 RFC 文档定协议，谁都能提案，全世界跟着改</text>
+<text x="100" y="632" font-size="12.5" fill="#444" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">路网靠自治：全球几十万张运营商网络用 BGP 协议互相「外交」，路由器一站站接力</text>
+<text x="100" y="658" font-size="12.5" fill="#444" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">名字靠共治：ICANN 管域名/IP 这唯一的「电话簿」，13 组根服务器分布全球</text>
+<text x="100" y="712" font-size="15" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">金句：互联网不是一台机器，是一个约定 —— 它不是被造出来的，是长出来的</text>
+</svg>

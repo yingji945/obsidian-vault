@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="645">
+<rect width="1140" height="645" fill="#f8f9fa" rx="10"/>
+<defs>
+<marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#90a4ae"/></marker>
+<marker id="arrowG" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#43a047"/></marker>
+</defs>
+<text x="570" y="40" text-anchor="middle" font-size="22" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">AI 是怎么跑起来的 —— 一场「压缩 → 生成」的接力</text>
+<text x="570" y="66" text-anchor="middle" font-size="13" fill="#666" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">三要素造模型，训练压世界，推理解参数，Agent 长手脚 —— 你每天都在用这条链（Hermes 就是最后一环）</text>
+<rect x="145" y="110" width="150" height="64" rx="9" fill="#5c6bc0"/>
+<text x="220" y="138" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">① 三要素</text>
+<text x="220" y="157" text-anchor="middle" font-size="10.5" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">算力·数据·算法</text>
+<line x1="295" y1="142" x2="320" y2="142" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="320" y="110" width="150" height="64" rx="9" fill="#42a5f5"/>
+<text x="395" y="138" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">② 训练</text>
+<text x="395" y="157" text-anchor="middle" font-size="10.5" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">预训练→对齐→微调</text>
+<line x1="470" y1="142" x2="495" y2="142" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="495" y="110" width="150" height="64" rx="9" fill="#26a69a"/>
+<text x="570" y="138" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">③ 模型</text>
+<text x="570" y="157" text-anchor="middle" font-size="10.5" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">参数文件·压缩知识</text>
+<line x1="645" y1="142" x2="670" y2="142" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="670" y="110" width="150" height="64" rx="9" fill="#66bb6a"/>
+<text x="745" y="138" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">④ 推理</text>
+<text x="745" y="157" text-anchor="middle" font-size="10.5" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">逐词生成·烧算力</text>
+<line x1="820" y1="142" x2="845" y2="142" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="845" y="110" width="150" height="64" rx="9" fill="#9ccc65"/>
+<text x="920" y="138" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">⑤ Agent 应用</text>
+<text x="920" y="157" text-anchor="middle" font-size="10.5" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">大脑+工具+记忆</text>
+<text x="220" y="196" text-anchor="middle" font-size="10.5" fill="#777" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">算力=GPU/芯片 · 数据=万亿语料 · 算法=Transformer(2017)</text>
+<line x1="395" y1="174" x2="395" y2="210" stroke="#90a4ae" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text x="410" y="200" font-size="10" fill="#888" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">展开</text>
+<rect x="150" y="210" width="150" height="46" rx="7" fill="#5c6bc0"/>
+<text x="225" y="229" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">预训练</text>
+<text x="225" y="245" text-anchor="middle" font-size="9.5" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">万亿语料学「下一个词」</text>
+<line x1="300" y1="233" x2="320" y2="233" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="320" y="210" width="150" height="46" rx="7" fill="#42a5f5"/>
+<text x="395" y="229" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">对齐 RLHF</text>
+<text x="395" y="245" text-anchor="middle" font-size="9.5" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">人类反馈教听话</text>
+<line x1="470" y1="233" x2="490" y2="233" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="490" y="210" width="150" height="46" rx="7" fill="#26a69a"/>
+<text x="565" y="229" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">微调</text>
+<text x="565" y="245" text-anchor="middle" font-size="9.5" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">领域/风格适配</text>
+<text x="395" y="280" text-anchor="middle" font-size="11" fill="#777" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">训练成本：几千张 GPU 跑几个月（GPT-4 级约数千万~上亿美元）—— 算力是入场券</text>
+<line x1="745" y1="174" x2="745" y2="300" stroke="#90a4ae" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text x="760" y="235" font-size="10" fill="#888" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">展开</text>
+<rect x="461" y="300" width="130" height="46" rx="7" fill="#66bb6a"/>
+<text x="526" y="319" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">你的提问</text>
+<text x="526" y="335" text-anchor="middle" font-size="9.5" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">浏览器/App 输入</text>
+<line x1="591" y1="323" x2="607" y2="323" stroke="#43a047" stroke-width="2" marker-end="url(#arrowG)"/>
+<rect x="607" y="300" width="130" height="46" rx="7" fill="#66bb6a"/>
+<text x="672" y="319" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">token 化</text>
+<text x="672" y="335" text-anchor="middle" font-size="9.5" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">拆成词元</text>
+<line x1="737" y1="323" x2="753" y2="323" stroke="#43a047" stroke-width="2" marker-end="url(#arrowG)"/>
+<rect x="753" y="300" width="130" height="46" rx="7" fill="#66bb6a"/>
+<text x="818" y="319" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">GPU 逐词生成</text>
+<text x="818" y="335" text-anchor="middle" font-size="9.5" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">循环 · 烧算力</text>
+<line x1="883" y1="323" x2="899" y2="323" stroke="#43a047" stroke-width="2" marker-end="url(#arrowG)"/>
+<rect x="899" y="300" width="130" height="46" rx="7" fill="#66bb6a"/>
+<text x="964" y="319" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">回答</text>
+<text x="964" y="335" text-anchor="middle" font-size="9.5" fill="#fff" opacity="0.95" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">你看到的话</text>
+<text x="745" y="370" text-anchor="middle" font-size="11" fill="#777" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">推理成本：每次对话都在烧算力 → API 按 token 计费（你用的 DeepSeek 就是这样）</text>
+<rect x="100" y="400" width="940" height="44" rx="9" fill="#ffa726"/>
+<text x="570" y="426" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">⑥ 治理贯穿全程：开源 vs 闭源模型（接第1篇）· 对齐 vs 控制 · 红队测试 · 数据主权（接第3篇）</text>
+<text x="100" y="486" font-size="12.5" fill="#444" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">① 模型本身没有记忆、不会查库 —— 它是「概率生成器」：幻觉 = 概率自信出错。所以 AI 说的关键数据必须查证（你的原则）</text>
+<text x="100" y="512" font-size="12.5" fill="#444" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">② 模型是静态的书（训练完就冻结），Agent 才是读书人：模型思考 + 工具手脚 + 记忆循环 = Hermes 这类形态</text>
+<text x="100" y="538" font-size="12.5" fill="#444" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">③ 你的位置：数据链的加工者（第3篇）+ Agent 的使用者 —— 模型负责想，你负责判断</text>
+<text x="100" y="608" font-size="15" font-weight="bold" fill="#333" font-family="PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif">金句：训练是把世界压缩成一本几百GB的书，推理是每次翻一页 —— 模型是书，Agent 是读书人，你是决定信不信的人</text>
+</svg>

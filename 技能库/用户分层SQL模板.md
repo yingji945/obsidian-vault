@@ -1,6 +1,6 @@
 ---
 created: 2026-07-28
-updated: 2026-07-28
+updated: 2026-08-26
 tags: [SQL, 用户分层, 技能库, 数据分析]
 ---
 
@@ -30,6 +30,7 @@ where dt = date_sub(current_date(), 1)  -- 最新全量分区
   and date(eorder_pay_time) <= '2026-06-30'  -- ← 分析窗口截止时间，改这里即可
   and total_ecmdty_payable_money <> 0
   and eorder_status in ('2','3','7','8','9','10')
+  and merchant_type = 0  -- 瑞幸即享自营口径，排除POP第三方
 group by 1,2,3,4,5
 ),
 t_first_order as -- 每个会员首次支付日期
@@ -92,6 +93,7 @@ group by 1
 - `dws_eorder_eorder_d_his_combine` 是**全量快照表**，一个分区包含所有历史订单
 - `eorder_status in ('2','3','7','8','9','10')` = 有效订单
 - `total_ecmdty_payable_money <> 0` = 剔除门店兑换单（临时策略，与线上模型对齐）
+- `merchant_type = 0` = 瑞幸即享自营口径，排除POP第三方（2026-08 起 POP 关店，保留过滤防未来混入）
 
 ## 经验教训（from 2026-07-28 coding review）
 

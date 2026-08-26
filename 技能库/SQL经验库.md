@@ -1,6 +1,6 @@
 ---
 created: 2026-07-17
-updated: 2026-07-17
+updated: 2026-08-26
 tags: [个人, SQL, 技能]
 ---
 
@@ -59,6 +59,7 @@ WHERE event_code IN (多个值)
 ```sql
 eorder_status IN ('2','3','7','8','9','10')
 total_ecmdty_payable_money <> 0  -- 剔除门店兑换单
+merchant_type = 0                -- 瑞幸即享自营口径，排除POP第三方
 ```
 
 ## 表结构速查
@@ -88,6 +89,19 @@ total_ecmdty_payable_money <> 0  -- 剔除门店兑换单
 
 **💡 原因：** 数据流是 `t1 → 各CTE → final`，控制点只在 `t1`，不需要在每条支路都加阀门。
 **预防原则：** 画数据流，找到**单一控制点**再下笔。如果所有支路都从同一个 CTE 衍生，只改那个 CTE。
+
+### 2026-08-26 | 用户分层SQL — DATEDIFF(month) 3参报错 + 跨月窗口用户重复计数
+
+**场景：** 7/20~8/3 窗口用户分层（新客/前3个月留存/沉默3个月回流），join 用 `DATEDIFF(month, b.ym, a.ym)`，且窗口横跨 7、8 两月
+
+❌ `and DATEDIFF(month, b.ym, a.ym) between 1 and 3` — 编译报错 `Invalid number of arguments for function datediff. Expected: 2; Found: 3`
+✅ `and months_between(to_date(concat(a.ym,'-01')), to_date(concat(b.ym,'-01'))) between 1 and 3`
+
+❌ `a` 子查询按 `(ym, mem_id)` 去重 — 7月和8月都下单的用户出现两行，同一用户可能同时进「新客」和「前3个月留存」两个桶，人数/单量/收入重复计数
+✅ `a` 按 mem_id 取 `min(ym)` 一个代表月，一人一行只归一类
+
+**💡 原因：** ① Spark SQL 的 `datediff` 只支持 2 参（返回天数），3 参月份版是 SQL Server/Databricks 语法；`'2026-05'` 这类年月字符串直接进日期函数会解析失败返回 NULL，需 `concat('-01')` 补全成完整日期。② 分析窗口跨自然月时，按月粒度取用户会产生多行，跨桶重复计数。
+**预防原则：** ① 月份差值一律用 `months_between(后面的日期, 前面的日期)`，年月字符串先 `concat('-01')` 再 to_date，别用 3 参 DATEDIFF；② 窗口跨月时，分层基准先按 mem_id 去重（取 `min(ym)`）再分类，避免一人进两桶。
 
 ---
 

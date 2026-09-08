@@ -1,6 +1,6 @@
 ---
 created: 2026-07-24
-updated: 2026-07-24
+updated: 2026-09-03
 tags: [企业, 数据, 字典, 电商DWD]
 field_status: ✅ 完整
 source: 用户提供 @ 2026-07-24
@@ -91,7 +91,8 @@ source: 用户提供 @ 2026-07-24
 ## 使用注意点
 
 - **mall 入口识别**：`event_code = 'web_page_start'` + `prop_data.web_url LIKE '%pmall%'`
-- **商品详情页**：`event_code = 'lucinpop_productdetail_start'`
+- **商品详情页**：`event_code = 'lucinpop_productdetail_start'`（老）/ `lkinstant_productdetail_start`（新）
+- **订单确认页/支付完成页识别（2026-09-03 踩坑修正）**：`event_code = 'web_page_start'` + `get_json_object(prop_data, '$.page_id') = '/pmall/order/confirm'`（确认页）/ `LIKE '/pmall/payResult/success/%'`（支付完成页）——**page_id 在 `prop_data` JSON 里，不要用公共表的 `prop_page_id` 字段匹配**（匹配不到，会漏数：实测确认页 UV 从真实值跌到 168 量级）
 - **`prop_data` 是 JSON 字符串**，需要用 `get_json_object()` 或类似函数解析，避免不必要的解析
 - **`user_id` 是瑞幸侧会员 ID**：可关联 `t_member.id`，空值表示未登录用户
 - **`union_id` 是微信全域统一 ID**：不同于 `open_id`（不同公众号/小程序的 open_id 不同），`union_id` 跨所有微信应用统一

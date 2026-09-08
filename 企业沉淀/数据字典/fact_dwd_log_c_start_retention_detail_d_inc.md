@@ -1,6 +1,6 @@
 ---
 created: 2026-07-24
-updated: 2026-07-24
+updated: 2026-09-03
 tags: [企业, 数据, 字典, 电商DWD]
 field_status: ✅ 完整
 source: 用户提供 @ 2026-07-24
@@ -101,6 +101,7 @@ source: 用户提供 @ 2026-07-24
 - **非投放渠道判断**：`prop_query_source IS NULL OR prop_query_source NOT IN (投放渠道码列表)` — 投放渠道码列表见 [[数据字典索引]]
 - **`prop_query` 是 URL query 参数**：如 `?source=xxx&channel=yyy` 这种键值对，解析时注意
 - **`prop_page_id` 和 `current_page_code` 的区别**：`prop_page_id` 是跳转的目标页面 ID，`current_page_code` 是当前页面 code
+- **⚠️ pmall 订单确认页/支付完成页不在这张表匹配（2026-09-03 踩坑）**：本表 `prop_page_id` 匹配不到 `/pmall/order/confirm` 等 web 商城结算页面——这些页面事件在电商表 `fact_dwd_log_c_luckinpop_detail_d_inc` 的 `prop_data.page_id`（JSON）里。分析黄金交易流程（商详→确认→支付）时，确认页/支付页请去电商表取，本表只负责启动/首页曝光类公共事件
 - **和 `fact_dwd_log_c_luckinpop_detail_d_inc` 的区别**：这张表聚焦**启动/页面浏览/留存分析**，有启动专属字段（`prop_launch_type`、`prop_launch_source`、`prop_query_source`）；那张表聚焦**电商交易链路**，有商品/优惠/活动字段
 
 ## 典型 SQL

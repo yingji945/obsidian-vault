@@ -189,7 +189,9 @@ for r in cur.fetchall(): print(r)
 
 - 工作脚本：`/opt/data/scripts/fetch_ai_news.py`（v2，可直接复制改源）
 - 健康状态：`/opt/data/scripts/.ai_news_health.json`（每次运行落盘，`--doctor` 读它算连续失败）
-- 链路体检：`python3 /opt/data/scripts/fetch_ai_news.py --doctor`（真实探测每个后端，有 ❌/⚠️ 返回退出码 1）
+- 链路体检：`python3 /opt/data/scripts/fetch_ai_news.py --doctor`（真实探测**每一个**后端，不能用 `route()`——它会短路在首个可用后端上，那样「备选死了」永远查不出来；有 ❌/⚠️ 返回退出码 1）
+- 看门狗脚本：`/opt/data/scripts/ai_news_doctor.sh`（正常时零输出=不推送）
+- 看门狗 cron：`AI简报链路体检`（job `25db9d59ac4c`，no_agent 零 token，每天北京时间 10:00 = UTC `0 2 * * *`，异常才推送到飞书）
 - 模板脚本：`/opt/data/skills/devops/cron-network-scripting/scripts/fetch_news_template.py`
 - 生效配置：`/opt/data/cron/jobs.json`（每日AI简报 0a9f9d6ee345）
 - token 精确记录：`/opt/data/state.db`（sessions 表）

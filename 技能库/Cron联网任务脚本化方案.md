@@ -173,6 +173,7 @@ for r in cur.fetchall(): print(r)
 5. **脚本相对路径**：cron 的 `script` 相对路径解析到 `/opt/data/scripts/`（HERMES_HOME 下）。
 6. **execute_code 被拦**：cron 安全策略下 `execute_code` 会 BLOCKED（approvals.cron_mode），调试脚本用 terminal + read_file 代替。
 7. **cronjob run 触发**：手动触发后要等 1-2 分钟 tick，`last_run_at` 更新才算跑完。
+8. **手动 `cronjob run` 触发 no_agent 任务会被记成"假失败"**：从 TUI/非 gateway 进程触发时，owner 进程先退出，调度器把该次执行标成 `status=unknown`，错误信息是 `Scheduler restarted after this execution's owner exited before a durable terminal state`——在 delegation 汇报里看起来就是 "FAILED"，实际**不是脚本失败**。三项证据即可定性：① `cron/output/<job_id>/*.md` 里写的是 `Status: silent (empty output)`；② 脚本的 `updated` 时间戳确实被刷新；③ `cron/executions.db` 的 `delivery_outcome` 为 `None`（未投递）、`cron_incidents` 表为空（未告警）。**验证 no_agent 任务请直接跑脚本本身**，别用 cronjob run 制造噪音；由 gateway 正常调度的执行会是 `status=completed` + `delivery_outcome=suppressed`。（真踩过：2026-10-09 新建「AI简报链路体检」后手动触发验证）
 
 ---
 

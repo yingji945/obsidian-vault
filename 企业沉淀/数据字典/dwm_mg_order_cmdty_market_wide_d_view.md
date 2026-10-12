@@ -2,7 +2,7 @@
 created: 2026-10-12
 updated: 2026-10-12
 tags: [企业, 数据字典, 订单交易域, 门店订单, DWM, 渠道归因]
-field_status: 🟡 155/164 含类型（152 继承上游 + 3 计算推断）；9 个待补（来自未建字典的维表）
+field_status: 🟡 162/164 含类型（159 继承上游 + 3 计算推断）；2 个待补（SKU 备注维未建字典）
 source: 用户提供（2026-10-12）：SELECT 字段列表 + 物化视图加工 SQL
 ---
 
@@ -102,7 +102,7 @@ end as new_user_pay_money
 
 ## 三、字段清单（164 字段 · 11 组）
 
-> **类型来源**：152 个字段继承自上游（主表 149 = 148 交集 + 分区 `dt`，渠道桥 3）；标 `*` 的 3 个为视图内计算字段（按参与运算字段推断）；剩 9 个 `—` 来自**尚未建字典的维表**（渠道层级维 7 + SKU 备注维 2）。
+> **类型来源**：159 个字段继承自上游（主表 149 = 148 交集 + 分区 `dt`，渠道桥 3，渠道层级维 7）；标 `*` 的 3 个为视图内计算字段（按参与运算字段推断）；剩 2 个 `—` 来自尚未建字典的 SKU 备注维（`cup_rmk_name` / `temp_rmk_name`）。
 
 #### A. 主键与订单标识（12 字段）
 
@@ -174,14 +174,14 @@ end as new_user_pay_money
 |:-:|:------|:----|:-----|
 | 45 | `third_order_id` | `bigint` | 三方渠道订单ID |
 | 46 | `third_order_no` | `string` | 三方渠道订单编号 |
-| 47 | `first_channel_id` | — | 一级渠道id |
-| 48 | `first_channel_name` | — | 一级渠道名称 |
-| 49 | `second_channel_id` | — | 二级渠道id |
-| 50 | `second_channel_name` | — | 二级渠道名称 |
-| 51 | `third_channel_id` | — | 三级渠道id |
-| 52 | `third_channel_name` | — | 三级渠道名称 |
+| 47 | `first_channel_id` | `int` | 一级渠道id |
+| 48 | `first_channel_name` | `string` | 一级渠道名称 |
+| 49 | `second_channel_id` | `int` | 二级渠道id |
+| 50 | `second_channel_name` | `string` | 二级渠道名称 |
+| 51 | `third_channel_id` | `bigint` | 三级渠道id |
+| 52 | `third_channel_name` | `string` | 三级渠道名称 |
 | 53 | `fourth_channel_id` | `bigint` | 四级渠道id |
-| 54 | `fourth_channel_name` | — | 四级渠道名称 |
+| 54 | `fourth_channel_name` | `string` | 四级渠道名称 |
 | 55 | `third_site_channel_id` | `bigint` | 三方渠道场域ID |
 | 56 | `third_site_channel_name` | `string` | 三方渠道场域名称 |
 
@@ -390,13 +390,13 @@ group by 1,2,3
 
 ---
 
-## 七、待补上游（2 张维表尚未建字典 · 主表与渠道桥已建）
+## 七、待补上游（1 张维表尚未建字典 · 主表/渠道桥/渠道层级维已建）
 
 | 来源表 | 角色 | 优先级 |
 |:--|:--|:--|
 | [[dwm_mg_order_cmdty_market_wide_d_inc]] | 主表（增量），159 字段底座；本视图 148 字段取自它 | ✅ **已建字典**（2026-10-12，↓ 本文档类型即由它回填） |
 | [[dwm_mg_order_cmdty_channel_bridge_d_inc]] | 渠道桥（fourth_channel / third_site_channel） | ✅ **已建字典**（2026-10-12） |
-| `dw_dim.dim_channel_level_d_his` | 渠道层级维（一~四级渠道） | 中 |
+| [[dim_channel_level_d_his]] | 渠道层级维（一~四级渠道） | ✅ **已建字典**（2026-10-12，本文档 7 个渠道字段类型由它回填） |
 | `dw_dim.dim_sku_ord_rmk_d_a` | SKU 备注维（杯型/温度） | 低 |
 
-> **类型已回填 155/164**（主表 149 + 渠道桥 3 + 计算字段 3）；上游字典已建 **2 张**（主表 + 渠道桥），剩余 2 张维表继续补。
+> **类型已回填 162/164**；上游字典已建 **3 张**（主表 + 渠道桥 + 渠道层级维），仅剩 SKU 备注维 1 张。

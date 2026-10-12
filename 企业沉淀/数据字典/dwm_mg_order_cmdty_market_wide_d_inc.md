@@ -362,5 +362,5 @@ order by income desc
 | 对象 | 说明 |
 |:--|:--|
 | `order_status` 枚举 | ⚠️ DDL 未给含义。**找数仓/开发要状态字典**（下游视图用了 `= 50`） |
-| `dw_dim.dim_channel_level_d_his` | 渠道层级维（一~四级渠道 id/name），**未建字典** |
+| [[dim_channel_level_d_his]] | 渠道层级维（一~四级渠道 id/name） | ✅ **已建字典**（2026-10-12） |
 | `dw_dim.dim_sku_ord_rmk_d_a` | SKU 备注维（杯型/温度），**未建字典** |

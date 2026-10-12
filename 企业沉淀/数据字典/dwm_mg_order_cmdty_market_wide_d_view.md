@@ -2,7 +2,7 @@
 created: 2026-10-12
 updated: 2026-10-12
 tags: [企业, 数据字典, 订单交易域, 门店订单, DWM, 渠道归因]
-field_status: ⚠️ 类型待补（字段名/说明/加工口径完整；字段类型需 DESC 补齐）
+field_status: 🟡 155/164 含类型（152 继承上游 + 3 计算推断）；9 个待补（来自未建字典的维表）
 source: 用户提供（2026-10-12）：SELECT 字段列表 + 物化视图加工 SQL
 ---
 
@@ -102,226 +102,226 @@ end as new_user_pay_money
 
 ## 三、字段清单（164 字段 · 11 组）
 
-> 类型列待补（需 `DESC dw_dwm.dwm_mg_order_cmdty_market_wide_d_view`）。
+> **类型来源**：152 个字段继承自上游（主表 149 = 148 交集 + 分区 `dt`，渠道桥 3）；标 `*` 的 3 个为视图内计算字段（按参与运算字段推断）；剩 9 个 `—` 来自**尚未建字典的维表**（渠道层级维 7 + SKU 备注维 2）。
 
 #### A. 主键与订单标识（12 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 1 | `dt` | — | 订单创建日期 |
-| 2 | `order_cmdty_id` | — | 订单商品ID |
-| 3 | `order_id` | — | 订单ID |
-| 4 | `order_no` | — | 订单编号 |
-| 5 | `mem_id` | — | 会员id |
-| 6 | `dept_id` | — | 部门id |
-| 7 | `order_status` | — | 订单状态 |
-| 8 | `order_origin` | — | 订单来源 |
-| 9 | `order_channel` | — | 订单渠道 |
-| 10 | `order_type` | — | 订单类型:外卖订单/自取订单/ 自助订单 |
-| 11 | `actual_order_type` | — | 实际订单类型 |
-| 12 | `order_cmdty_situation` | — | 商品情况 参见枚举 1正常 2损耗 3换货 |
+| 1 | `dt` | `string` | 订单创建日期 |
+| 2 | `order_cmdty_id` | `bigint` | 订单商品ID |
+| 3 | `order_id` | `bigint` | 订单ID |
+| 4 | `order_no` | `string` | 订单编号 |
+| 5 | `mem_id` | `bigint` | 会员id |
+| 6 | `dept_id` | `bigint` | 部门id |
+| 7 | `order_status` | `int` | 订单状态 |
+| 8 | `order_origin` | `int` | 订单来源 |
+| 9 | `order_channel` | `int` | 订单渠道 |
+| 10 | `order_type` | `int` | 订单类型:外卖订单/自取订单/ 自助订单 |
+| 11 | `actual_order_type` | `int` | 实际订单类型 |
+| 12 | `order_cmdty_situation` | `int` | 商品情况 参见枚举 1正常 2损耗 3换货 |
 
 #### B. 履约与配送（11 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 13 | `exp_getit_type` | — | 取餐方式 |
-| 14 | `exp_disp_type` | — | 接单类型(预留字段)（1-配送人接单、2-门店指派） |
-| 15 | `retain_interval_time` | — | 保鲜时段 |
-| 16 | `time_slice_half_hour` | — | 半小时时段 |
-| 17 | `supplier_id` | — | 配送商id |
-| 18 | `supplier_no` | — | 配送商编号 |
-| 19 | `supplier_name` | — | 配送商名称 |
-| 20 | `supplier_type` | — | 配送商类型 |
-| 21 | `exp_distance` | — | 配送距离 |
-| 22 | `delivery_income_amt` | — | 配送费收入(非周边商品分摊) |
-| 23 | `delivery_pay_share_amt` | — | 配送费实付(非周边商品分摊) |
+| 13 | `exp_getit_type` | `int` | 取餐方式 |
+| 14 | `exp_disp_type` | `int` | 接单类型(预留字段)（1-配送人接单、2-门店指派） |
+| 15 | `retain_interval_time` | `int` | 保鲜时段 |
+| 16 | `time_slice_half_hour` | `string` | 半小时时段 |
+| 17 | `supplier_id` | `int` | 配送商id |
+| 18 | `supplier_no` | `string` | 配送商编号 |
+| 19 | `supplier_name` | `string` | 配送商名称 |
+| 20 | `supplier_type` | `int` | 配送商类型 |
+| 21 | `exp_distance` | `decimal(19, 4)` | 配送距离 |
+| 22 | `delivery_income_amt` | `decimal(19, 4)` | 配送费收入(非周边商品分摊) |
+| 23 | `delivery_pay_share_amt` | `decimal(19, 4)` | 配送费实付(非周边商品分摊) |
 
 #### C. 时间戳（11 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 24 | `order_create_time` | — | 订单创建时间 |
-| 25 | `order_update_time` | — | 订单修改时间 |
-| 26 | `order_pay_time` | — | 订单支付时间 |
-| 27 | `order_finish_time` | — | 订单完成时间 |
-| 28 | `product_accept_time` | — | 接单时间（开始制作时间） |
-| 29 | `product_finish_time` | — | 制作完成时间 |
-| 30 | `exp_getit_time` | — | 取餐时间 |
-| 31 | `exp_finish_time` | — | 配送完成时间 |
-| 32 | `refund_time` | — | 退款时间 |
-| 33 | `set_up_time` | — | 开业时间 |
-| 34 | `commodity_actual_launch_date` | — | 上市时间 |
+| 24 | `order_create_time` | `timestamp` | 订单创建时间 |
+| 25 | `order_update_time` | `timestamp` | 订单修改时间 |
+| 26 | `order_pay_time` | `timestamp` | 订单支付时间 |
+| 27 | `order_finish_time` | `timestamp` | 订单完成时间 |
+| 28 | `product_accept_time` | `timestamp` | 接单时间（开始制作时间） |
+| 29 | `product_finish_time` | `timestamp` | 制作完成时间 |
+| 30 | `exp_getit_time` | `timestamp` | 取餐时间 |
+| 31 | `exp_finish_time` | `timestamp` | 配送完成时间 |
+| 32 | `refund_time` | `timestamp` | 退款时间 |
+| 33 | `set_up_time` | `timestamp` | 开业时间 |
+| 34 | `commodity_actual_launch_date` | `string` | 上市时间 |
 
 #### D. 状态与标记（10 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 35 | `pay_from` | — | 支付方式（微信、支付宝、银联，来源：配置中心） |
-| 36 | `group_order` | — | 拼单类型（0-普通，1-拼单） |
-| 37 | `income_status` | — | 商品收入状态 |
-| 38 | `invoice_status` | — | 商品开票状态 |
-| 39 | `refund_status` | — | 商品退款状态 |
-| 40 | `refund_origin` | — | 退款来源 1自动2人工 |
-| 41 | `is_custome` | — | 是否客制化0否1是 |
-| 42 | `is_gift` | — | 是否是赠送商品0否1是 |
-| 43 | `is_99_coupon` | — | 是否使用99券 |
-| 44 | `is_multi_cup` | — | 是否一单多杯 |
+| 35 | `pay_from` | `int` | 支付方式（微信、支付宝、银联，来源：配置中心） |
+| 36 | `group_order` | `int` | 拼单类型（0-普通，1-拼单） |
+| 37 | `income_status` | `int` | 商品收入状态 |
+| 38 | `invoice_status` | `int` | 商品开票状态 |
+| 39 | `refund_status` | `int` | 商品退款状态 |
+| 40 | `refund_origin` | `int` | 退款来源 1自动2人工 |
+| 41 | `is_custome` | `int` | 是否客制化0否1是 |
+| 42 | `is_gift` | `int` | 是否是赠送商品0否1是 |
+| 43 | `is_99_coupon` | `int` | 是否使用99券 |
+| 44 | `is_multi_cup` | `int` | 是否一单多杯 |
 
 #### E. 渠道归因（含三方）（12 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 45 | `third_order_id` | — | 三方渠道订单ID |
-| 46 | `third_order_no` | — | 三方渠道订单编号 |
+| 45 | `third_order_id` | `bigint` | 三方渠道订单ID |
+| 46 | `third_order_no` | `string` | 三方渠道订单编号 |
 | 47 | `first_channel_id` | — | 一级渠道id |
 | 48 | `first_channel_name` | — | 一级渠道名称 |
 | 49 | `second_channel_id` | — | 二级渠道id |
 | 50 | `second_channel_name` | — | 二级渠道名称 |
 | 51 | `third_channel_id` | — | 三级渠道id |
 | 52 | `third_channel_name` | — | 三级渠道名称 |
-| 53 | `fourth_channel_id` | — | 四级渠道id |
+| 53 | `fourth_channel_id` | `bigint` | 四级渠道id |
 | 54 | `fourth_channel_name` | — | 四级渠道名称 |
-| 55 | `third_site_channel_id` | — | 三方渠道场域ID |
-| 56 | `third_site_channel_name` | — | 三方渠道场域名称 |
+| 55 | `third_site_channel_id` | `bigint` | 三方渠道场域ID |
+| 56 | `third_site_channel_name` | `string` | 三方渠道场域名称 |
 
 #### F. 门店与区域（17 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 57 | `shop_id` | — | 门店id |
-| 58 | `shop_no` | — | 门店编号 |
-| 59 | `shop_name` | — | 门店名称 |
-| 60 | `shop_type` | — | 门店类型 |
-| 61 | `shop_level` | — | 门店层级:快取店/悠享店/外卖厨房/快闪店/瑞即购/企业内部店/旗舰店 |
-| 62 | `shop_price_level` | — | 商品价位级别 |
-| 63 | `coop_pattern_code` | — | 运营合作模式主数据编号：直营，代理 |
-| 64 | `coop_pattern_name` | — | 运营合作模式名称：直营，代理 |
-| 65 | `area_id` | — | 区域ID |
-| 66 | `area_name` | — | 区域 |
-| 67 | `city_id` | — | 城市ID |
-| 68 | `city_name` | — | 城市 |
-| 69 | `city_tier` | — | 城市等级 0 新一线 1 一线 2 二线 3 三线 4 四线 |
-| 70 | `prov_id` | — | 省份id |
-| 71 | `prov_name` | — | 省份 |
-| 72 | `business_region_code` | — | 经营区域code |
-| 73 | `business_region_name` | — | 经营区域名称 |
+| 57 | `shop_id` | `bigint` | 门店id |
+| 58 | `shop_no` | `string` | 门店编号 |
+| 59 | `shop_name` | `string` | 门店名称 |
+| 60 | `shop_type` | `int` | 门店类型 |
+| 61 | `shop_level` | `int` | 门店层级:快取店/悠享店/外卖厨房/快闪店/瑞即购/企业内部店/旗舰店 |
+| 62 | `shop_price_level` | `bigint` | 商品价位级别 |
+| 63 | `coop_pattern_code` | `string` | 运营合作模式主数据编号：直营，代理 |
+| 64 | `coop_pattern_name` | `string` | 运营合作模式名称：直营，代理 |
+| 65 | `area_id` | `bigint` | 区域ID |
+| 66 | `area_name` | `string` | 区域 |
+| 67 | `city_id` | `bigint` | 城市ID |
+| 68 | `city_name` | `string` | 城市 |
+| 69 | `city_tier` | `int` | 城市等级 0 新一线 1 一线 2 二线 3 三线 4 四线 |
+| 70 | `prov_id` | `bigint` | 省份id |
+| 71 | `prov_name` | `string` | 省份 |
+| 72 | `business_region_code` | `string` | 经营区域code |
+| 73 | `business_region_name` | `string` | 经营区域名称 |
 
 #### G. 商品与 SKU（20 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 74 | `cmdty_id` | — | 商品ID |
-| 75 | `cmdty_sale_id` | — | 商品销售ID |
-| 76 | `cmdty_sale_plan_id` | — | 商品销售方案ID |
-| 77 | `cmdty_sale_unit` | — | 商品销售单位 |
-| 78 | `cmdty_code` | — | 商品编号 |
-| 79 | `cmdty_name` | — | 商品名称 |
-| 80 | `cmdty_size` | — | 商品大小 |
-| 81 | `cmdty_temper` | — | 商品冷热属性 |
-| 82 | `cmdty_mode` | — | 商品类型 参见枚举 现制商品 外购商品 |
-| 83 | `one_category_name` | — | 商品一级分类名称 |
-| 84 | `two_category_name` | — | 商品二级分类名称 |
-| 85 | `three_category_name` | — | 商品三级分类名称 |
-| 86 | `cmdty_theme` | — | 商品主题 |
-| 87 | `cmdty_series` | — | 商品系列 |
-| 88 | `cmdty_texture` | — | 商品浓度 |
-| 89 | `sku_code` | — | sku编码 |
-| 90 | `sku_name` | — | sku名称 |
+| 74 | `cmdty_id` | `bigint` | 商品ID |
+| 75 | `cmdty_sale_id` | `bigint` | 商品销售ID |
+| 76 | `cmdty_sale_plan_id` | `bigint` | 商品销售方案ID |
+| 77 | `cmdty_sale_unit` | `int` | 商品销售单位 |
+| 78 | `cmdty_code` | `string` | 商品编号 |
+| 79 | `cmdty_name` | `string` | 商品名称 |
+| 80 | `cmdty_size` | `string` | 商品大小 |
+| 81 | `cmdty_temper` | `string` | 商品冷热属性 |
+| 82 | `cmdty_mode` | `int` | 商品类型 参见枚举 现制商品 外购商品 |
+| 83 | `one_category_name` | `string` | 商品一级分类名称 |
+| 84 | `two_category_name` | `string` | 商品二级分类名称 |
+| 85 | `three_category_name` | `string` | 商品三级分类名称 |
+| 86 | `cmdty_theme` | `string` | 商品主题 |
+| 87 | `cmdty_series` | `string` | 商品系列 |
+| 88 | `cmdty_texture` | `string` | 商品浓度 |
+| 89 | `sku_code` | `string` | sku编码 |
+| 90 | `sku_name` | `string` | sku名称 |
 | 91 | `cup_rmk_name` | — | 杯型(新) |
 | 92 | `temp_rmk_name` | — | 温度(新) |
-| 93 | `business_cmdty_name` | — | 业务商品名称，若无业务商品，则为商品名称 |
+| 93 | `business_cmdty_name` | `string` | 业务商品名称，若无业务商品，则为商品名称 |
 
 #### H. 套餐（6 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 94 | `package_id` | — | 商品系统套餐ID |
-| 95 | `package_code` | — | 商品系统套餐CODE |
-| 96 | `package_name` | — | 商品系统套餐NAME |
-| 97 | `package_batch_no` | — | 批次号 套餐多份时展示使用 |
-| 98 | `package_type` | — | 套餐类型(1为自营套餐，2为渠道套餐) |
-| 99 | `package_sub_type` | — | 套餐子类型 1 预存套餐 |
+| 94 | `package_id` | `bigint` | 商品系统套餐ID |
+| 95 | `package_code` | `string` | 商品系统套餐CODE |
+| 96 | `package_name` | `string` | 商品系统套餐NAME |
+| 97 | `package_batch_no` | `int` | 批次号 套餐多份时展示使用 |
+| 98 | `package_type` | `int` | 套餐类型(1为自营套餐，2为渠道套餐) |
+| 99 | `package_sub_type` | `int` | 套餐子类型 1 预存套餐 |
 
 #### I. 优惠与营销活动（31 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 100 | `market_id` | — | 营销活动ID |
-| 101 | `market_name` | — | 营销活动名称 |
-| 102 | `market_type` | — | 营销活动类型 |
-| 103 | `market_sub_type` | — | 营销活动子类型 |
-| 104 | `company_discount_type` | — | 企业优惠类型 |
-| 105 | `company_discount_id` | — | 企业优惠id |
-| 106 | `company_discount_name` | — | 企业优惠名称 |
-| 107 | `voucher_id` | — | 优惠id |
-| 108 | `voucher_no` | — | 优惠编号 |
-| 109 | `voucher_type` | — | 优惠类型 1优惠券 2咖啡库券 3阶梯次卡 |
-| 110 | `voucher_origin` | — | 优惠来源 |
-| 111 | `voucher_status` | — | 优惠状态 |
-| 112 | `template_id` | — | 优惠模板id |
-| 113 | `template_name` | — | 优惠模板名称 |
-| 114 | `template_type` | — | 优惠模板类别 |
-| 115 | `proposal_id` | — | 优惠方案ID |
-| 116 | `proposal_no` | — | 优惠方案编号 |
-| 117 | `proposal_name` | — | 优惠方案名称 |
-| 118 | `proposal_type_name` | — | 优惠方案类型名称 |
-| 119 | `proposal_sub_type_name` | — | 优惠方案子类型名称 |
-| 120 | `discount_type` | — | 打折类型 |
-| 121 | `discount_sub_type` | — | 打折子类型 |
-| 122 | `allowance_project_id` | — | 一级补贴项目ID |
-| 123 | `allowance_project_no` | — | 一级补贴项目编号 |
-| 124 | `allowance_project_name` | — | 一级补贴项目名称 |
-| 125 | `sub_allowance_project_id` | — | 二级补贴项目ID |
-| 126 | `sub_allowance_project_no` | — | 二级补贴项目编号 |
-| 127 | `sub_allowance_project_name` | — | 二级补贴项目名称 |
-| 128 | `voucher_share_amt` | — | 优惠分摊金额 |
-| 129 | `market_amt` | — | 营销活动优惠价格 |
-| 130 | `company_discount_amt` | — | 企业减免金额 |
+| 100 | `market_id` | `bigint` | 营销活动ID |
+| 101 | `market_name` | `string` | 营销活动名称 |
+| 102 | `market_type` | `int` | 营销活动类型 |
+| 103 | `market_sub_type` | `int` | 营销活动子类型 |
+| 104 | `company_discount_type` | `int` | 企业优惠类型 |
+| 105 | `company_discount_id` | `bigint` | 企业优惠id |
+| 106 | `company_discount_name` | `string` | 企业优惠名称 |
+| 107 | `voucher_id` | `bigint` | 优惠id |
+| 108 | `voucher_no` | `string` | 优惠编号 |
+| 109 | `voucher_type` | `int` | 优惠类型 1优惠券 2咖啡库券 3阶梯次卡 |
+| 110 | `voucher_origin` | `int` | 优惠来源 |
+| 111 | `voucher_status` | `int` | 优惠状态 |
+| 112 | `template_id` | `bigint` | 优惠模板id |
+| 113 | `template_name` | `string` | 优惠模板名称 |
+| 114 | `template_type` | `int` | 优惠模板类别 |
+| 115 | `proposal_id` | `bigint` | 优惠方案ID |
+| 116 | `proposal_no` | `string` | 优惠方案编号 |
+| 117 | `proposal_name` | `string` | 优惠方案名称 |
+| 118 | `proposal_type_name` | `string` | 优惠方案类型名称 |
+| 119 | `proposal_sub_type_name` | `string` | 优惠方案子类型名称 |
+| 120 | `discount_type` | `int` | 打折类型 |
+| 121 | `discount_sub_type` | `int` | 打折子类型 |
+| 122 | `allowance_project_id` | `bigint` | 一级补贴项目ID |
+| 123 | `allowance_project_no` | `string` | 一级补贴项目编号 |
+| 124 | `allowance_project_name` | `string` | 一级补贴项目名称 |
+| 125 | `sub_allowance_project_id` | `bigint` | 二级补贴项目ID |
+| 126 | `sub_allowance_project_no` | `string` | 二级补贴项目编号 |
+| 127 | `sub_allowance_project_name` | `string` | 二级补贴项目名称 |
+| 128 | `voucher_share_amt` | `decimal(19, 4)` | 优惠分摊金额 |
+| 129 | `market_amt` | `decimal(19, 4)` | 营销活动优惠价格 |
+| 130 | `company_discount_amt` | `decimal(19, 4)` | 企业减免金额 |
 
 #### J. 三方金额与补贴（12 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 131 | `third_discnt_amt` | — | 三方商品折扣后金额 |
-| 132 | `third_mkt_amt` | — | 三方其他商品减免金额 |
-| 133 | `third_pay_amt` | — | 三方用户实付 |
-| 134 | `third_red_packet_amt` | — | 三方红包分摊金额 |
-| 135 | `third_packing_charge_amt` | — | 三方打包费 |
-| 136 | `third_allowance_share_amt` | — | 三方补贴分摊至商品 |
-| 137 | `total_subsidy_amt` | — | 总补贴金额 |
-| 138 | `luckin_subsidy_amt` | — | 我方补贴金额 |
-| 139 | `third_subsidy_amt` | — | 三方补贴金额 |
-| 140 | `new_voucher_share_amt` | — | 优惠分摊金额-新 |
-| 141 | `new_company_real_income_share_amt` | — | 优惠分摊金额(公司实收)-新 |
-| 142 | `new_user_pay_money` | — | 用户实付-新 |
+| 131 | `third_discnt_amt` | `decimal(19, 4)` | 三方商品折扣后金额 |
+| 132 | `third_mkt_amt` | `decimal(19, 4)` | 三方其他商品减免金额 |
+| 133 | `third_pay_amt` | `decimal(19, 4)` | 三方用户实付 |
+| 134 | `third_red_packet_amt` | `decimal(19, 4)` | 三方红包分摊金额 |
+| 135 | `third_packing_charge_amt` | `decimal(19, 4)` | 三方打包费 |
+| 136 | `third_allowance_share_amt` | `decimal(19, 4)` | 三方补贴分摊至商品 |
+| 137 | `total_subsidy_amt` | `decimal(19, 4)` | 总补贴金额 |
+| 138 | `luckin_subsidy_amt` | `decimal(19, 4)` | 我方补贴金额 |
+| 139 | `third_subsidy_amt` | `decimal(19, 4)` | 三方补贴金额 |
+| 140 | `new_voucher_share_amt` | `decimal(19,4)`* | 优惠分摊金额-新 |
+| 141 | `new_company_real_income_share_amt` | `decimal(19,4)`* | 优惠分摊金额(公司实收)-新 |
+| 142 | `new_user_pay_money` | `decimal(19,4)`* | 用户实付-新 |
 
 #### K. 金额口径（自营）（22 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 143 | `company_real_income_share_amt` | — | 优惠分摊金额(公司实收) |
-| 144 | `order_cmdty_cnt` | — | 一单商品数 |
-| 145 | `order_category_cnt` | — | 一单商品数(非周边) |
-| 146 | `currency` | — | 币种 |
-| 147 | `month_exchange_rate` | — | 对应转换汇率 |
-| 148 | `cmdty_sale_cnt` | — | 商品销量 |
-| 149 | `cmdty_origin_amt` | — | 商品定价 |
-| 150 | `addition_amt` | — | 附属费用 |
-| 151 | `cmdty_deal_amt` | — | 特价优惠金额 优惠金额 |
-| 152 | `coupon_amt` | — | 优惠券抵扣金额 |
-| 153 | `cfcoupon_value_amt` | — | 咖啡库券面值 |
-| 154 | `cfcoupon_deal_amt` | — | 咖啡库券减免金额 |
-| 155 | `punch_deduct_amt` | — | 次数减免金额 |
-| 156 | `wx_miniapp_discount_amt` | — | 微信小程序减免金额 |
-| 157 | `coupon_share_amt` | — | 优惠券分摊金额 |
-| 158 | `cfcoupon_share_amt` | — | 咖啡库券分摊金额 |
-| 159 | `punch_income_amt` | — | 次数收入金额 |
-| 160 | `cmdty_payable_amt` | — | 商品应付价格 |
-| 161 | `cmdty_should_amt` | — | 商品应该付价格,payable_amt减掉优惠券金额 |
-| 162 | `cmdty_pay_amt` | — | 商品实付价格 |
-| 163 | `cmdty_income_amt` | — | 商品收入 |
-| 164 | `user_pay_money` | — | 用户实付 |
+| 143 | `company_real_income_share_amt` | `decimal(19, 4)` | 优惠分摊金额(公司实收) |
+| 144 | `order_cmdty_cnt` | `bigint` | 一单商品数 |
+| 145 | `order_category_cnt` | `bigint` | 一单商品数(非周边) |
+| 146 | `currency` | `string` | 币种 |
+| 147 | `month_exchange_rate` | `decimal(19, 4)` | 对应转换汇率 |
+| 148 | `cmdty_sale_cnt` | `bigint` | 商品销量 |
+| 149 | `cmdty_origin_amt` | `decimal(19, 4)` | 商品定价 |
+| 150 | `addition_amt` | `decimal(19, 4)` | 附属费用 |
+| 151 | `cmdty_deal_amt` | `decimal(19, 4)` | 特价优惠金额 优惠金额 |
+| 152 | `coupon_amt` | `decimal(19, 4)` | 优惠券抵扣金额 |
+| 153 | `cfcoupon_value_amt` | `decimal(19, 4)` | 咖啡库券面值 |
+| 154 | `cfcoupon_deal_amt` | `decimal(19, 4)` | 咖啡库券减免金额 |
+| 155 | `punch_deduct_amt` | `decimal(19, 4)` | 次数减免金额 |
+| 156 | `wx_miniapp_discount_amt` | `decimal(19, 4)` | 微信小程序减免金额 |
+| 157 | `coupon_share_amt` | `decimal(19, 4)` | 优惠券分摊金额 |
+| 158 | `cfcoupon_share_amt` | `decimal(19, 4)` | 咖啡库券分摊金额 |
+| 159 | `punch_income_amt` | `decimal(19, 4)` | 次数收入金额 |
+| 160 | `cmdty_payable_amt` | `decimal(19, 4)` | 商品应付价格 |
+| 161 | `cmdty_should_amt` | `decimal(19, 4)` | 商品应该付价格,payable_amt减掉优惠券金额 |
+| 162 | `cmdty_pay_amt` | `decimal(19, 4)` | 商品实付价格 |
+| 163 | `cmdty_income_amt` | `decimal(19, 4)` | 商品收入 |
+| 164 | `user_pay_money` | `decimal(19, 4)` | 用户实付 |
 
 ---
 
@@ -381,20 +381,22 @@ group by 1,2,3
 ## 六、关联
 
 - 索引：[[数据字典索引]] · 分层：[[数据仓库分层说明]]
-- **同属订单交易域**：[[dwm_mg_order_cmdty_channel_bridge_d_inc]] —— 订单商品归属渠道桥接表（**本视图的上游 `cb`**）
+- **同属订单交易域**：
+  - [[dwm_mg_order_cmdty_market_wide_d_inc]] —— 订单商品基础表（**本视图上游 `oc`**，159 字段底座；⚠️ `cmdty_income_amt` 同名陷阱见第三/四节）
+  - [[dwm_mg_order_cmdty_channel_bridge_d_inc]] —— 订单商品归属渠道桥接表（**本视图上游 `cb`**）
 - **易混淆（务必区分）**：
   - [[dws_eorder_eorder_commodity_d_his_combine]] —— 电商商城（即享）订单商品，**非门店**
   - [[dws_eorder_eorder_d_his_combine]] —— 电商商城订单头
 
 ---
 
-## 七、待补上游（3 张来源表尚未建字典 · 渠道桥已建）
+## 七、待补上游（2 张维表尚未建字典 · 主表与渠道桥已建）
 
 | 来源表 | 角色 | 优先级 |
 |:--|:--|:--|
-| `dw_dwm.dwm_mg_order_cmdty_market_wide_d_inc` | 主表（增量），本视图几乎全部字段来自它 | ⭐ 高（可解开 `cmdty_settle_income_amt`、`order_status` 枚举） |
+| [[dwm_mg_order_cmdty_market_wide_d_inc]] | 主表（增量），159 字段底座；本视图 148 字段取自它 | ✅ **已建字典**（2026-10-12，↓ 本文档类型即由它回填） |
 | [[dwm_mg_order_cmdty_channel_bridge_d_inc]] | 渠道桥（fourth_channel / third_site_channel） | ✅ **已建字典**（2026-10-12） |
 | `dw_dim.dim_channel_level_d_his` | 渠道层级维（一~四级渠道） | 中 |
 | `dw_dim.dim_sku_ord_rmk_d_a` | SKU 备注维（杯型/温度） | 低 |
 
-> 拿到 `SHOW CREATE TABLE` 后：补全本文档的**类型列**；上游字典已建 1 张（渠道桥，见上表），剩余 3 张继续补。
+> **类型已回填 155/164**（主表 149 + 渠道桥 3 + 计算字段 3）；上游字典已建 **2 张**（主表 + 渠道桥），剩余 2 张维表继续补。

@@ -38,7 +38,7 @@ source: 用户提供（2026-10-12）：SELECT 字段列表 + 物化视图加工 
 | 来源表 | 别名 | 贡献 |
 |:--|:--|:--|
 | `dw_dwm.dwm_mg_order_cmdty_market_wide_d_inc` | `oc` | **主表**（增量）：订单 / 门店 / 商品 / 营销 / 金额全部基础字段 |
-| `dw_dwm.dwm_mg_order_cmdty_channel_bridge_d_inc` | `cb` | 渠道桥表：`fourth_channel_*`、`third_site_channel_*` |
+| [[dwm_mg_order_cmdty_channel_bridge_d_inc]] | `cb` | 渠道桥表：`fourth_channel_id`、`third_site_channel_*`（**无渠道名**，名称在渠道层级维） |
 | `dw_dim.dim_channel_level_d_his` | `cl` | 渠道层级维：`first / second / third_channel_*`、`fourth_channel_name` |
 | `dw_dim.dim_sku_ord_rmk_d_a` | `sku` | SKU 备注维：`cup_rmk_name`、`temp_rmk_name` |
 
@@ -381,20 +381,20 @@ group by 1,2,3
 ## 六、关联
 
 - 索引：[[数据字典索引]] · 分层：[[数据仓库分层说明]]
-- **同属订单交易域**：本表为**首张**（域内暂无可互链的表）
+- **同属订单交易域**：[[dwm_mg_order_cmdty_channel_bridge_d_inc]] —— 订单商品归属渠道桥接表（**本视图的上游 `cb`**）
 - **易混淆（务必区分）**：
   - [[dws_eorder_eorder_commodity_d_his_combine]] —— 电商商城（即享）订单商品，**非门店**
   - [[dws_eorder_eorder_d_his_combine]] —— 电商商城订单头
 
 ---
 
-## 七、待补上游（4 张来源表尚未建字典）
+## 七、待补上游（3 张来源表尚未建字典 · 渠道桥已建）
 
 | 来源表 | 角色 | 优先级 |
 |:--|:--|:--|
 | `dw_dwm.dwm_mg_order_cmdty_market_wide_d_inc` | 主表（增量），本视图几乎全部字段来自它 | ⭐ 高（可解开 `cmdty_settle_income_amt`、`order_status` 枚举） |
-| `dw_dwm.dwm_mg_order_cmdty_channel_bridge_d_inc` | 渠道桥（fourth_channel / third_site_channel） | 中 |
+| [[dwm_mg_order_cmdty_channel_bridge_d_inc]] | 渠道桥（fourth_channel / third_site_channel） | ✅ **已建字典**（2026-10-12） |
 | `dw_dim.dim_channel_level_d_his` | 渠道层级维（一~四级渠道） | 中 |
 | `dw_dim.dim_sku_ord_rmk_d_a` | SKU 备注维（杯型/温度） | 低 |
 
-> 拿到 `SHOW CREATE TABLE` 后：补全本文档的**类型列** + 逐步建上游字典。
+> 拿到 `SHOW CREATE TABLE` 后：补全本文档的**类型列**；上游字典已建 1 张（渠道桥，见上表），剩余 3 张继续补。

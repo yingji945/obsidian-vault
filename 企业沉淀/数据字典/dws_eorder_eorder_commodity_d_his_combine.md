@@ -199,3 +199,5 @@ LIMIT 20;
 ```
 
 关联：[[数据字典索引]] · [[dws_eorder_eorder_d_his_combine]]
+
+> 🚫 **勿与门店订单混淆**：本表是**即享商城（电商）**订单商品，门店零售订单（线下取餐/门店配送）见 [[dwm_mg_order_cmdty_market_wide_d_view]]（订单交易域）。两条业务线口径不通用。

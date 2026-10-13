@@ -1,7 +1,7 @@
 ---
 created: 2026-10-12
 updated: 2026-10-12
-tags: [企业, 数据字典, 订单交易域, 维度表, 商品属性, 客制化, dw_dim]
+tags: [企业, 数据字典, 门店业务域, 维度表, 商品属性, 客制化, dw_dim]
 field_status: ✅ 完整（44 字段含类型，来源 SHOW CREATE TABLE）
 source: 用户提供 CREATE TABLE（2026-10-12）；DDL last_modified 2026-01-05
 ---
@@ -19,7 +19,7 @@ source: 用户提供 CREATE TABLE（2026-10-12）；DDL last_modified 2026-01-05
 |:--|:--|
 | 全名 | `dw_dim.dim_sku_ord_rmk_d_a` |
 | 库 | `dw_dim`（维表层） |
-| 业务域 | **门店侧订单交易域**（商品属性维） |
+| 业务域 | **门店业务域**（商品属性维） |
 | 角色 | **商品属性字典**：把 SKU 翻译成"什么杯型/什么温度/加了什么料"，支撑客制化与商品结构分析 |
 | 粒度 | SKU（1 行 = 1 个 `sku_code`） |
 | 表类型 | 快照表（⚠️ 见第五节陷阱 2） |
@@ -60,7 +60,7 @@ dw_dwm.dwm_mg_order_cmdty_market_wide_d_view  订单商品渠道归因视图
 | 杯型 | `cup_rmk_name`（杯型**(新)**） | `cup_size_rmk_name`（杯型） |
 | 温度 | `temp_rmk_name`（温度**(新)**） | `tempr_rmk_name`（温度） |
 
-> **做分析必须用带「(新)」的两个字段** —— 订单交易域的视图用的就是它们。
+> **做分析必须用带「(新)」的两个字段** —— 门店业务域的视图用的就是它们。
 > 旧字段是否已停止更新**未确证**；但既然下游口径已切新，混用会造成同一指标两个数。
 > 另有 `concentration_rmk_name`（浓度）与 `coffee_degree_rmk_name`（咖啡浓度）两个浓度字段，**口径差异待与业务确认**。
 
@@ -222,7 +222,7 @@ group by oc.dt
 - 索引：[[数据字典索引]] · 分层：[[数据仓库分层说明]]
 - **下游使用方**：[[dwm_mg_order_cmdty_market_wide_d_view]] —— 订单商品渠道归因视图（取本表 2 个字段 `cup_rmk_name` / `temp_rmk_name`）
 - **上游主表**：[[dwm_mg_order_cmdty_market_wide_d_inc]] —— 订单商品基础表（经 `sku_code` 关联本表）
-- **同族维表**：[[dim_channel_level_d_his]] —— 渠道归因维（两者都是订单交易域的维表，且**都有快照口径陷阱**）
+- **同族维表**：[[dim_channel_level_d_his]] —— 渠道归因维（两者都是门店业务域的维表，且**都有快照口径陷阱**）
 
 ---
 

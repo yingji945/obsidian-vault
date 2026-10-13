@@ -1,7 +1,7 @@
 ---
 created: 2026-07-24
 updated: 2026-09-03
-tags: [企业, 数据, 字典, 电商DWD]
+tags: [企业, 数据, 字典, 埋点日志域]
 field_status: ✅ 完整
 source: 用户提供 @ 2026-07-24
 ---

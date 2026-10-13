@@ -1,7 +1,7 @@
 ---
 created: 2026-10-12
 updated: 2026-10-12
-tags: [企业, 数据字典, 订单交易域, 门店订单, DWM, 渠道归因]
+tags: [企业, 数据字典, 门店业务域, 门店订单, DWM, 渠道归因]
 field_status: ✅ 完整（4 字段含类型，来源 SHOW CREATE TABLE）
 source: 用户提供 CREATE TABLE（2026-10-12）；DDL 时间戳指向建表于 2026-04-17
 ---
@@ -18,7 +18,7 @@ source: 用户提供 CREATE TABLE（2026-10-12）；DDL 时间戳指向建表于
 | 项 | 说明 |
 |:--|:--|
 | 全名 | `dw_dwm.dwm_mg_order_cmdty_channel_bridge_d_inc` |
-| 业务域 | **订单交易域**（门店业务） |
+| 业务域 | **门店业务域** |
 | 角色 | **桥接表**：订单商品 ↔ 渠道归因，服务下游宽表 |
 | 粒度 | 订单商品行（`order_cmdty_id`） |
 | 层级 | `DWM`（日增量 `_inc`） |

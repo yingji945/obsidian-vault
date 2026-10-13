@@ -2,8 +2,8 @@
 created: 2026-10-12
 updated: 2026-10-12
 tags: [企业, 数据字典, 门店业务域, DWD, 商品分析, 埋点]
-field_status: 🟡 39/55 有类型（继承同族表，待 DDL 核对）；16 个 prop_* 专属字段待补
-source: 用户提供字段列表（2026-10-12）；类型参考同族表 fact_dwd_log_c_luckinpop_detail_d_inc / _start_retention_
+field_status: ✅ 完整（55/55 字段类型已按 SHOW CREATE TABLE 核定）
+source: 字段列表 2026-10-12；类型由 SHOW CREATE TABLE 核定 2026-10-13（首次入库时曾用同族表交叉继承，8 个推断错误已修正）
 ---
 
 # dw_dwd.fact_dwd_log_c_menu_cmdty_detail_d_inc
@@ -44,112 +44,113 @@ dw_dwd.fact_dwd_log_c_*                    DWD 主题事实表家族
 
 ## 三、字段清单（55 字段 · 10 组）
 
-> **类型标注**：带 `†` = 由**同族表继承**（`fact_dwd_log_c_luckinpop_*` 与 `_start_retention_*` 两张表中该字段**同名同类型、零冲突**，可靠性高）；`⚠️ 待补` = 本表专属字段，同族表无参考。
+> **类型**：55 个字段全部来自 `SHOW CREATE TABLE` 核定值（2026-10-13）。
+> ⚠️ 注意本表**多数字段是 `string`**：经度/纬度、三个价格字段、各种 id 都是字符串，聚合或计算前需显式 `cast`。
 
 ### A. 主键与用户标识（6 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 1 | `rowkey` | `string` † | 主键 |
-| 2 | `open_id` | `varchar` † | 微信授权id |
-| 3 | `union_id` | `varchar` † | 微信小程序唯一id |
-| 4 | `login_id` | `varchar` † | 登录id（可能是手机号、邮箱、员工号等） |
-| 5 | `user_id` | `bigint` † | 用户id |
-| 6 | `distinct_id` | `varchar` † | 设备id |
+| 1 | `rowkey` | `string` | 主键 |
+| 2 | `open_id` | `string` | 微信授权id |
+| 3 | `union_id` | `string` | 微信小程序唯一id |
+| 4 | `login_id` | `string` | 登录id（可能是手机号、邮箱、员工号等） |
+| 5 | `user_id` | `bigint` | 用户id |
+| 6 | `distinct_id` | `string` | 设备id |
 
 ### B. 时间戳（4 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 7 | `event_time` | `bigint` † | 时间时间 时间戳 |
-| 8 | `server_time_form` | `datetime` † | 数据上报时间 |
-| 9 | `server_time` | `bigint` † | 上报时间戳 |
-| 10 | `event_time_form` | `string` † | 事件时间 yyyy-MM-dd |
+| 7 | `event_time` | `bigint` | 时间时间 时间戳 |
+| 8 | `server_time_form` | `string` | 数据上报时间 |
+| 9 | `server_time` | `bigint` | 上报时间戳 |
+| 10 | `event_time_form` | `string` | 事件时间 yyyy-MM-dd |
 
 ### C. 设备与环境（10 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 11 | `platform` | `tinyint` † | 平台 1ios 2安卓 3小程序 5支付宝小程序 6抖音小程序 |
-| 12 | `app_version` | `varchar` † | 版本 |
-| 13 | `carrier` | `varchar` † | 运营商 |
-| 14 | `longitude` | `decimal` † | 经度 |
-| 15 | `latitude` | `decimal` † | 纬度 |
-| 16 | `system_language` | `varchar` † | 系统语言 |
-| 17 | `os_type` | `varchar` † | 硬件操作系统类别 |
-| 18 | `manufacturer` | `varchar` † | 手机生产厂商 |
-| 19 | `model` | `varchar` † | 设备型号 |
-| 20 | `app_name` | `varchar` † | 应用名 |
+| 11 | `platform` | `int` | 平台 1ios 2安卓 3小程序 5支付宝小程序 6抖音小程序 |
+| 12 | `app_version` | `string` | 版本 |
+| 13 | `carrier` | `string` | 运营商 |
+| 14 | `longitude` | `string` | 经度 |
+| 15 | `latitude` | `string` | 纬度 |
+| 16 | `system_language` | `string` | 系统语言 |
+| 17 | `os_type` | `string` | 硬件操作系统类别 |
+| 18 | `manufacturer` | `string` | 手机生产厂商 |
+| 19 | `model` | `string` | 设备型号 |
+| 20 | `app_name` | `string` | 应用名 |
 
 ### D. 地理位置（7 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 21 | `country` | `varchar` † | 国家 |
-| 22 | `country_id` | `varchar` † | 国家ID |
-| 23 | `province` | `varchar` † | 省份 |
-| 24 | `province_id` | `varchar` † | 省份ID |
-| 25 | `city` | `varchar` † | 城市 |
-| 26 | `city_id` | `varchar` † | 城市ID |
-| 27 | `region_code` | `varchar` † | 经营地区编码 |
+| 21 | `country` | `string` | 国家 |
+| 22 | `country_id` | `bigint` | 国家ID |
+| 23 | `province` | `string` | 省份 |
+| 24 | `province_id` | `bigint` | 省份ID |
+| 25 | `city` | `string` | 城市 |
+| 26 | `city_id` | `bigint` | 城市ID |
+| 27 | `region_code` | `string` | 经营地区编码 |
 
 ### E. 事件与会话（4 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 28 | `event_type` | `varchar` † | 事件类别 |
-| 29 | `event_code` | `varchar` † | 事件code |
-| 30 | `session_id` | `varchar` † | 会话id |
-| 31 | `current_page_code` | `varchar` † | 页面code |
+| 28 | `event_type` | `string` | 事件类别 |
+| 29 | `event_code` | `string` | 事件code |
+| 30 | `session_id` | `string` | 会话id |
+| 31 | `current_page_code` | `string` | 页面code |
 
 ### F. AB 与门店（7 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 32 | `prop_abtest` | `varchar` † | ab测试信息 |
-| 33 | `prop_dept_id` | `varchar` † | 门店部门id |
-| 34 | `prop_shop_name` | `varchar` † | 门店部门名称 |
-| 35 | `prop_supporttakeout` | `varchar` † | 取餐方式 |
-| 36 | `prop_referer` | `varchar` † | 前页面页面id |
-| 37 | `prop_location` | `varchar(?)` † | 全局位置 |
-| 38 | `prop_label_location` | ⚠️ 待补 | 一级类目内位置 |
+| 32 | `prop_abtest` | `string` | ab测试信息 |
+| 33 | `prop_dept_id` | `string` | 门店部门id |
+| 34 | `prop_shop_name` | `string` | 门店部门名称 |
+| 35 | `prop_supporttakeout` | `int` | 取餐方式 |
+| 36 | `prop_referer` | `string` | 前页面页面id |
+| 37 | `prop_location` | `string` | 全局位置 |
+| 38 | `prop_label_location` | `string` | 一级类目内位置 |
 
 ### G. 位置与类目（4 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 39 | `prop_position_code` | ⚠️ 待补 | 位置code |
-| 40 | `prop_position_name` | ⚠️ 待补 | 位置名称 |
-| 41 | `prop_first_label_name` | ⚠️ 待补 | 一级类目名称 |
-| 42 | `prop_second_label_name` | ⚠️ 待补 | 二级类目名称 |
+| 39 | `prop_position_code` | `string` | 位置code |
+| 40 | `prop_position_name` | `string` | 位置名称 |
+| 41 | `prop_first_label_name` | `string` | 一级类目名称 |
+| 42 | `prop_second_label_name` | `string` | 二级类目名称 |
 
 ### H. 商品内容与售卖（9 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 43 | `prop_content_type` | ⚠️ 待补 | 内容类型 1商品 2套餐 |
-| 44 | `prop_content_id` | ⚠️ 待补 | 内容id |
-| 45 | `prop_content_value` | ⚠️ 待补 | 内容值 |
-| 46 | `prop_cmdty_price` | ⚠️ 待补 | 商品原价 |
-| 47 | `prop_cmdty_discount_price` | ⚠️ 待补 | 划线价(折扣价) |
-| 48 | `prop_cmdty_final_price` | ⚠️ 待补 | 预估到手价 |
-| 49 | `prop_sale_state` | ⚠️ 待补 | 售卖状态 |
-| 50 | `prop_ck_type` | ⚠️ 待补 | 点击类型 仅限点击事件 |
-| 51 | `prop_cmdty_sourcefrom` | ⚠️ 待补 | 商品推荐规则 1-人工 2-算法 3-策略规则 0-无数据 |
+| 43 | `prop_content_type` | `string` | 内容类型 1商品 2套餐 |
+| 44 | `prop_content_id` | `string` | 内容id |
+| 45 | `prop_content_value` | `string` | 内容值 |
+| 46 | `prop_cmdty_price` | `string` | 商品原价 |
+| 47 | `prop_cmdty_discount_price` | `string` | 划线价(折扣价) |
+| 48 | `prop_cmdty_final_price` | `string` | 预估到手价 |
+| 49 | `prop_sale_state` | `string` | 售卖状态 |
+| 50 | `prop_ck_type` | `string` | 点击类型 仅限点击事件 |
+| 51 | `prop_cmdty_sourcefrom` | `int` | 商品推荐规则 1-人工 2-算法 3-策略规则 0-无数据 |
 
 ### I. 策略与扩展（3 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 52 | `prop_plan_id` | ⚠️ 待补 | 方案id |
-| 53 | `prop_tactic_id` | ⚠️ 待补 | 策略id |
-| 54 | `prop_data` | `string` † | 扩展字段 |
+| 52 | `prop_plan_id` | `string` | 方案id |
+| 53 | `prop_tactic_id` | `string` | 策略id |
+| 54 | `prop_data` | `string` | 扩展字段 |
 
 ### J. 其他（1 字段）
 
 | # | 字段名 | 类型 | 说明 |
 |:-:|:------|:----|:-----|
-| 55 | `business_language` | `varchar` † | 语言 |
+| 55 | `business_language` | `string` | 语言 |
 ---
 
 ## 四、口径与使用注意点
@@ -221,11 +222,34 @@ order by expose_cnt desc
 
 ---
 
-## 七、待补
+## 七、类型核定记录（2026-10-13）
+
+| 阶段 | 情况 |
+|:--|:--|
+| 首次入库（10-12） | 只给了字段列表（无 DDL）→ 用**同族表交叉继承**得 39 个类型（标 `†`）+ 16 个待补 |
+| DDL 到位（10-13） | 逐字段核对：**39 个继承值中 8 个推断错误** → 已全部按 DDL 真值修正 |
+| 当前 | ✅ **55/55** 全部为 DDL 真实类型 |
+
+### 继承推断错的 8 个（同族表类型 ≠ 本表类型）
+
+| 字段 | 同族表（曾推断） | 本表真实 | 性质 |
+|:--|:--|:--|:--|
+| `server_time_form` | `datetime` | `string` | 承载类型不同 |
+| `longitude` / `latitude` | `decimal` | **`string`** | ⚠️ 经纬度是**字符串**，算距离/落地图前必须 `cast` |
+| `country_id` / `province_id` / `city_id` | `varchar` | **`bigint`** | ⚠️ 方向相反：同族表存字符串，本表存数值 |
+| `platform` | `tinyint` | `int` | 宽度不同 |
+| `prop_supporttakeout` | `varchar` | `int` | 承载类型不同 |
+
+> 💡 **教训（写进技能）**：同族表交叉继承**只能当暂定值**——同族 fact 表各自的清洗/写入方式不同，`id`、经纬度、时间这类"**承载型**"字段最容易不一致。继承值必须标 `†` 并等 DDL 核对，不能当结论用。
+>
+> 💡 **本表的 `string` 陷阱**：`prop_cmdty_price` / `prop_cmdty_discount_price` / `prop_cmdty_final_price`（价格）与 `longitude` / `latitude`（经纬度）都是 **`string`** —— 直接 `sum()`/`avg()` 会走隐式转换甚至报错，必须 `cast(prop_cmdty_price as decimal(19,4))`。
+
+---
+
+## 八、待补
 
 | 对象 | 说明 |
 |:--|:--|
-| **16 个 `prop_*` 字段类型** | `prop_position_code` / `prop_content_id` / `prop_cmdty_*` / `prop_plan_id` 等本表专属字段，同族表无参考 —— **需 `DESC` 或 DDL** |
-| 39 个继承类型**核对** | 继承自同族表，需 DDL 最终确认 |
-| `event_code` 事件清单 | 有哪些事件、各事件带哪些 `prop_` —— **待补**（影响第 2 条注意点） |
+| `event_code` 事件清单 | 有哪些事件、各事件带哪些 `prop_` —— **待补**（影响「字段是否有值取决于事件类型」这条口径） |
 | `prop_data` JSON 结构 | 扩展字段里有哪些 key |
+| `prop_sale_state` / `prop_ck_type` 取值 | 中文备注型字段，取值清单待 `group by` 补 |

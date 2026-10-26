@@ -2,9 +2,13 @@
 name: team-growth-coordination
 category: productivity
 description: 人才分类生长框架：基于管理/运营/数据三种起点的差异化任务委派与成长路径设计。含诊断方法、变量依赖链、协调者进化、规模跃迁、反馈回路，覆盖从个人培养到团队演进的完整闭环。
+see_also: 企业沉淀/02-团队协作协议/团队人员生长与协调框架-操作手册（vault 可读版，同一框架面向非 Agent 读者的镜像）
 ---
 
 # 团队人员生长与协调框架
+
+> 📖 **vault 可读版**（给非 Agent 读者、可直接在 Obsidian 里读）：[[团队人员生长与协调框架-操作手册]]
+> 两侧是**刻意的镜像**（skill 本体 ↔ vault 手册，44% 重叠属设计），**不合并**，只互指。
 
 ## When to use this skill
 

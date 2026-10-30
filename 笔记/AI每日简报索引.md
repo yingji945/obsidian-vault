@@ -112,6 +112,7 @@ tags: [index, AI, 日报]
 | 10-27 | Anthropic 335 页招股书（史上最大 IPO / 史上最亏）、OpenAI 断网训练最强模型、钛动 Navos Pro 结果导向 Agent | #商业 #安全 #产品 |
 | 10-28 | GPT-6.1 Terra 1 折价电脑操作、KV Cache 压成常数（OCR 无页数上限）、蚂蚁开源 Ling-3.1-flash 个人 Agent | #产品 #技术 #Agent |
 | 10-29 | Gemini 4 Carbon 全面超 Opus 5.5（首发半价）、扩散模型杀进 Agent 主场（35B 快 Jev 一倍）、Agent 记忆「相关但仍错」失效论文 | #产品 #技术 #Agent |
+| 10-30 | 百度搜索递归自我进化、Claude 新 Fable/新 Opus 曝光、1.3B OXR 靠 RSI 登顶 OCR | #产品 #技术 #研究 |
 
 ---
 
@@ -277,6 +278,7 @@ tags: [index, AI, 日报]
 - [[笔记/2026-10/AI每日简报 2026-10-27|10-27（Anthropic 招股书/OpenAI 断网训练）]]
 - [[笔记/2026-10/AI每日简报 2026-10-28|10-28（KV Cache 压成常数/个人 Agent 开源）]]
 - [[笔记/2026-10/AI每日简报 2026-10-29|10-29（Gemini 4 Carbon 超 Opus 5.5/扩散 Agent）]]
+- [[笔记/2026-10/AI每日简报 2026-10-30|10-30（百度搜索 RSI/Agent 可验证性）]]
 
 
 ---

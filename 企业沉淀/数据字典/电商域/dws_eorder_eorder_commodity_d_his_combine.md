@@ -1,12 +1,21 @@
 ---
 created: 2026-08-05
-updated: 2026-08-07
+updated: 2026-11-05
 tags: [企业, 数据, 字典, 电商]
-field_status: ✅ 完整
+field_status: ⚠️ 表名未验证（字段清单可用，表查不到）
 source: 用户提供 @ 2026-08-05
 ---
 
 # dws_eorder_eorder_commodity_d_his_combine — 电商订单商品合并表
+
+> ## ⚠️ 表名未验证：`show tables` 与实跑查询均报 **Table or view not found**（2026-11-05 确认）
+>
+> 本文档的 82 字段清单来自 2026-08-05 用户提供，**字段内容可能仍有效，但表名挂错了**。
+>
+> **实际可用的商品明细表是** → [[fact_dwd_eord_eorder_commodity_d_his]]（`dw_dwd` 层，84 字段，已实测可查）
+>
+> 在确认这张 DWS 表是否真实存在（或已下线/改名）之前，**任何查询请改用上面那张表**。
+
 
 **数据库**：`dw_dws`
 

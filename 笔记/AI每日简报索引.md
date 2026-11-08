@@ -121,6 +121,7 @@ tags: [index, AI, 日报]
 | 11-05 | 百度开源文心 5.5 Flash Base、GPT-Image-2.6 直出 GIF/SVG、Data Agent 完整落地链路 | #产品 #Agent #开源 |
 | 11-06 | 腾讯 Hy4 调用激增十倍扩容（Agent 能力开源第一）、DeepSeek 带火稀疏计算国产芯片再融近 10 亿、SwarmEvolve 潜空间智能体群体进化 | #产品 #商业 #Agent |
 | 11-07 | 下一代 Agent Harness 抢跑、AGENTS.md 被指危险攻击面、Jeff Dean×李飞飞 RSI 非共识、Personal Agent 配云电脑 | #Agent #产品 #安全 |
+| 11-08 | OpenAI 融资仅到账 110 亿（不及计划一半）、资本撤离世界模型、GitHub 撑不住各家另建、AGENTS.md 成攻击面 | #商业 #Agent #安全 |
 
 ---
 
@@ -298,6 +299,7 @@ tags: [index, AI, 日报]
 - [[笔记/2026-11/AI每日简报 2026-11-05|11-05（文心 5.5 Flash 开源/图像模型直出 SVG）]]
 - [[笔记/2026-11/AI每日简报 2026-11-06|11-06（腾讯 Hy4 十倍扩容/稀疏计算融资）]]
 - [[笔记/2026-11/AI每日简报 2026-11-07|11-07（Agent Harness 抢跑/AGENTS.md 攻击面）]]
+- [[笔记/2026-11/AI每日简报 2026-11-08|11-08（OpenAI 融资减半/资本撤离世界模型）]]
 
 
 ---

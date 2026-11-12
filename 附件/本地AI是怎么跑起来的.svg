@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" font-family="-apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <marker id="arw" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 z" fill="#e6a15c"/>
+    </marker>
+    <marker id="arw2" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 z" fill="#5b9bd5"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="900" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="600" y="52" text-anchor="middle" fill="#e8eef6" font-size="30" font-weight="700">本地 AI 是怎么跑起来的</text>
+  <text x="600" y="84" text-anchor="middle" fill="#8b98a5" font-size="16">瓶颈不是算得慢，是搬得慢</text>
+
+  <!-- Section 1: three layers -->
+  <text x="60" y="130" fill="#e6a15c" font-size="17" font-weight="700">① 三个层次（别混）</text>
+
+  <rect x="60" y="145" width="1080" height="42" rx="6" fill="#1c2430" stroke="#5b9bd5" stroke-width="1.5"/>
+  <text x="80" y="172" fill="#5b9bd5" font-size="15" font-weight="700">Agent 层</text>
+  <text x="215" y="172" fill="#c9d6e4" font-size="14">Codex CLI · Claude Code · Hermes　—　理解任务、读写文件、调工具、验证结果</text>
+
+  <rect x="60" y="193" width="1080" height="42" rx="6" fill="#1c2430" stroke="#7bc47f" stroke-width="1.5"/>
+  <text x="80" y="220" fill="#7bc47f" font-size="15" font-weight="700">推理引擎层</text>
+  <text x="215" y="220" fill="#c9d6e4" font-size="14">llama.cpp · Ollama · vLLM · Kinetic　—　把模型跑起来，一个 token 一个 token 出</text>
+
+  <rect x="60" y="241" width="1080" height="42" rx="6" fill="#1c2430" stroke="#e6a15c" stroke-width="1.5"/>
+  <text x="80" y="268" fill="#e6a15c" font-size="15" font-weight="700">模型层</text>
+  <text x="215" y="268" fill="#c9d6e4" font-size="14">GPT-5 · Qwen · LFM3 …　—　权重文件（GGUF / safetensors），几十亿个数字</text>
+
+  <!-- Section 2: the bottleneck -->
+  <text x="60" y="330" fill="#e6a15c" font-size="17" font-weight="700">② 核心机制：每生成一个字，整个模型要搬一遍</text>
+
+  <!-- model box -->
+  <rect x="70" y="360" width="180" height="130" rx="8" fill="#2a1f1a" stroke="#e6a15c" stroke-width="2"/>
+  <text x="160" y="392" text-anchor="middle" fill="#e6a15c" font-size="15" font-weight="700">模型文件</text>
+  <text x="160" y="418" text-anchor="middle" fill="#c9d6e4" font-size="13">7B 量化后</text>
+  <text x="160" y="443" text-anchor="middle" fill="#ffd580" font-size="22" font-weight="700">约 4 GB</text>
+  <text x="160" y="468" text-anchor="middle" fill="#8b98a5" font-size="12">几十亿个权重数字</text>
+
+  <!-- pipe -->
+  <rect x="270" y="395" width="230" height="58" rx="29" fill="#101820" stroke="#e6a15c" stroke-width="2"/>
+  <text x="385" y="422" text-anchor="middle" fill="#e6a15c" font-size="14" font-weight="700">内存带宽</text>
+  <text x="385" y="443" text-anchor="middle" fill="#8b98a5" font-size="12">DDR5 约 50~60 GB/s　·　显存 360 GB/s</text>
+  <line x1="255" y1="424" x2="265" y2="424" stroke="#e6a15c" stroke-width="3" marker-end="url(#arw)"/>
+  <line x1="505" y1="424" x2="515" y2="424" stroke="#e6a15c" stroke-width="3" marker-end="url(#arw)"/>
+
+  <!-- compute -->
+  <rect x="520" y="360" width="170" height="130" rx="8" fill="#1a2a1a" stroke="#7bc47f" stroke-width="2"/>
+  <text x="605" y="392" text-anchor="middle" fill="#7bc47f" font-size="15" font-weight="700">CPU / GPU</text>
+  <text x="605" y="420" text-anchor="middle" fill="#c9d6e4" font-size="13">乘法累加</text>
+  <text x="605" y="448" text-anchor="middle" fill="#8b98a5" font-size="12">算得很快</text>
+  <text x="605" y="470" text-anchor="middle" fill="#8b98a5" font-size="12">但等料</text>
+
+  <!-- loop back -->
+  <path d="M605,495 L605,530 L160,530 L160,497" fill="none" stroke="#e6a15c" stroke-width="2.5" stroke-dasharray="7,5" marker-end="url(#arw)"/>
+  <text x="385" y="552" text-anchor="middle" fill="#e6a15c" font-size="13">每吐 1 个字，回到起点，重搬一遍 → 串行，无法并行</text>
+
+  <!-- formula -->
+  <rect x="710" y="360" width="430" height="130" rx="8" fill="#1c2430" stroke="#5b9bd5" stroke-width="1.5"/>
+  <text x="925" y="390" text-anchor="middle" fill="#5b9bd5" font-size="14" font-weight="700">速度天花板公式</text>
+  <text x="925" y="428" text-anchor="middle" fill="#ffd580" font-size="20" font-weight="700">t/s ≈ 带宽(GB/s) ÷ 模型大小(GB)</text>
+  <text x="925" y="456" text-anchor="middle" fill="#c9d6e4" font-size="13">例：50 GB/s ÷ 4 GB ≈ 12.5 t/s</text>
+  <text x="925" y="478" text-anchor="middle" fill="#8b98a5" font-size="12">这就是为什么 7B Q4 在笔记本上是 15~25 t/s</text>
+
+  <!-- Section 3: prefill vs decode -->
+  <text x="60" y="600" fill="#e6a15c" font-size="17" font-weight="700">③ 两个阶段，瓶颈完全不同</text>
+
+  <rect x="60" y="615" width="530" height="150" rx="8" fill="#1c2430" stroke="#5b9bd5" stroke-width="1.5"/>
+  <text x="80" y="645" fill="#5b9bd5" font-size="16" font-weight="700">Prefill 预填充</text>
+  <line x1="80" y1="658" x2="570" y2="658" stroke="#2c3947" stroke-width="1"/>
+  <text x="80" y="683" fill="#c9d6e4" font-size="13">· 读完你输入的整段提示词</text>
+  <text x="80" y="706" fill="#c9d6e4" font-size="13">· 大矩阵乘法 → <tspan fill="#7bc47f" font-weight="700">吃算力</tspan></text>
+  <text x="80" y="729" fill="#c9d6e4" font-size="13">· <tspan fill="#7bc47f" font-weight="700">可以并行</tspan>，GPU 能吃满</text>
+  <text x="80" y="752" fill="#8b98a5" font-size="12">感受：贴长文档后卡住的那几秒</text>
+
+  <rect x="610" y="615" width="530" height="150" rx="8" fill="#1c2430" stroke="#e6a15c" stroke-width="1.5"/>
+  <text x="630" y="645" fill="#e6a15c" font-size="16" font-weight="700">Decode 解码</text>
+  <line x1="630" y1="658" x2="1120" y2="658" stroke="#2c3947" stroke-width="1"/>
+  <text x="630" y="683" fill="#c9d6e4" font-size="13">· 一个字一个字往外吐</text>
+  <text x="630" y="706" fill="#c9d6e4" font-size="13">· 每字重搬全模型 → <tspan fill="#ff9b9b" font-weight="700">吃内存带宽</tspan></text>
+  <text x="630" y="729" fill="#c9d6e4" font-size="13">· <tspan fill="#ff9b9b" font-weight="700">严格串行</tspan>，无法并行</text>
+  <text x="630" y="752" fill="#8b98a5" font-size="12">感受：输出一个字一个字往外蹦的速度</text>
+
+  <!-- Section 4: quantization -->
+  <text x="60" y="812" fill="#e6a15c" font-size="17" font-weight="700">④ 量化：本地跑得动的唯一原因（也直接提速）</text>
+
+  <rect x="60" y="826" width="1080" height="48" rx="6" fill="#1c2430" stroke="#7bc47f" stroke-width="1.5"/>
+  <text x="80" y="848" fill="#c9d6e4" font-size="14">FP16 <tspan fill="#8b98a5">14 GB</tspan>　→　INT8 <tspan fill="#8b98a5">7 GB</tspan>　→　<tspan fill="#ffd580" font-weight="700">Q4_K_M　4.1 GB</tspan>　　</text>
+  <text x="80" y="867" fill="#7bc47f" font-size="13" font-weight="700">体积减 3.5 倍 = 搬运量减 3.5 倍 = 速度直接快 3.5 倍</text>
+  <text x="620" y="867" fill="#8b98a5" font-size="12">（K = 分块量化，块内单独缩放；M = Medium 中等混合比例）</text>
+</svg>

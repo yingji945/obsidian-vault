@@ -1,9 +1,18 @@
 ---
 created: 2026-08-04
+updated: 2026-11-18
 tags: [技能库, Hermes, 会话接续, 跨平台, token]
 ---
 
 # Hermes 跨平台会话接续规范
+
+> ## 🔍 复核状态（2026-11-18 · Hermes v0.21.5）
+>
+> ✅ **全文仍然有效**，是 4 篇部署文档里唯一下沉为「行为规范」而非「环境配置」的一篇，因此不受版本迭代影响。
+> - 三层保险（Memory / 会话搜索 / vault）机制未变；
+> - 「别让一条会话跨过夜」的 token 教训仍是最高性价比的省钱手段；
+> - 文末引用的 `multi-agent-roundtable/references/cross-platform-session-handoff.md` **已核实存在**（`/opt/data/skills/multi-agent-roundtable/references/`）。
+> - ⚠️ 唯一提醒：文中「Hermes 能搜索历史会话」依赖 `session_search`，而**当前会话内容入库有延迟**（近期实测：刚发生的对话搜不到，需等落库）。所以「接着聊」时若搜不到，直接贴关键结论比反复搜更快。
 
 > 你在飞书和 CLI 之间切换使用 Hermes 时，如何保证对话不断裂、不烧冤枉 token。
 >

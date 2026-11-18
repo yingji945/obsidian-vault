@@ -1,6 +1,6 @@
 ---
 created: 2026-08-05
-updated: 2026-08-05
+updated: 2026-11-18
 tags: [技能库, Hermes运维, 排障, 双容器, gateway]
 ---
 
@@ -9,6 +9,15 @@ tags: [技能库, Hermes运维, 排障, 双容器, gateway]
 > 现象：cron 投递飞书**间歇性**失败 `delivery error: Feishu dependencies not installed`，
 > 但飞书对话（live gateway）一直正常。
 > 结论：不是缺包，是**环境变量传播陷阱 + 第二个 Hermes 容器抢 cron** 的双重叠加。
+
+## 🔍 复核状态（2026-11-18 · Hermes v0.21.5）
+
+✅ **本文的方法论与关键坑仍然成立**，是这批部署文档里最经得起时间考验的一篇：
+- 「`HERMES_GATEWAY_NO_SUPERVISE=1` 无效（2026-08-05 实测）」——**这条结论是对的**，本文第 64 行早已写明，不要再被别处记成「用它解决」。
+- 「必须 `docker compose up -d <service>` 重建，`docker restart` 不生效」——仍成立。
+- 「双容器共享 HERMES_HOME 时 `gateway_state.json` 会被覆盖，不能信它判断 live gateway」——仍成立。
+
+⚠️ **本次未能实弹复验**：当前会话运行在 `hermes` 主容器内，无法执行 `docker exec hermes-dashboard ...` 观察另一容器进程。下次在宿主机操作 Docker 时，请按第七节「验证」四条命令走一遍确认。
 
 ## 一句话总结
 

@@ -1,9 +1,28 @@
 ---
 created: 2026-07-29
+updated: 2026-11-18
 tags: [Hermes, 模型路由, 配置经验, 工具链, dashscope]
 ---
 
 # Hermes 多模型路由配置方案
+
+> ## 🔍 复核状态（2026-11-18 · Hermes v0.21.5）
+>
+> 🔴 **本文「配置」段的写法在当前线上已不存在，照抄不会生效。**
+> 实测 `/opt/data/config.yaml`（1996 字节 / 90 行 / 最后改于 2026-10-06）**只有 deepseek 一个 provider**，
+> `fallback_providers: []` 为空，**没有 `auxiliary:` 段，也没有 `providers.alibaba`**。
+> 也就是说：**当前图片识别并未走 DashScope 路由**。`DASHSCOPE_API_KEY` / `DASHSCOPE_BASE_URL` 仍在 `.env` 里，但配置层没有引用。
+>
+> | 内容 | 状态 |
+> |:--|:--|
+> | 主模型 `deepseek-v4-flash` + provider `deepseek` | ✅ 仍一致 |
+> | `providers.alibaba` + `auxiliary.vision` 那两段配置 | 🔴 **线上不存在，需重新配置才会生效** |
+> | 「`auxiliary.vision` 不能显式写空 `api_key`」这个坑 | ✅ **经验仍然有效**，是本文最有价值的部分 |
+> | 额度表（qwen3.7-plus 250万/30天 等） | ⚠️ 未复核，需登录百炼控制台确认 |
+> | 故障切换流程 | 🔴 前提（已配置 vision 路由）不成立，流程本身无从执行 |
+> | 额度检查 cron `04bc8be14a6f`（每 7 天） | ⚠️ **任务仍在跑，但它检查的路由已不在配置里**——要么恢复配置，要么停掉这个任务 |
+>
+> **待决策**：是否恢复 DashScope 视觉路由。恢复则照第三节原文重新写入 `config.yaml`；不恢复则应停掉配额检查 cron。
 
 ## 背景
 

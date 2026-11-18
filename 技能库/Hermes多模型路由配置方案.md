@@ -8,21 +8,48 @@ tags: [Hermes, 模型路由, 配置经验, 工具链, dashscope]
 
 > ## 🔍 复核状态（2026-11-18 · Hermes v0.21.5）
 >
-> 🔴 **本文「配置」段的写法在当前线上已不存在，照抄不会生效。**
-> 实测 `/opt/data/config.yaml`（1996 字节 / 90 行 / 最后改于 2026-10-06）**只有 deepseek 一个 provider**，
-> `fallback_providers: []` 为空，**没有 `auxiliary:` 段，也没有 `providers.alibaba`**。
-> 也就是说：**当前图片识别并未走 DashScope 路由**。`DASHSCOPE_API_KEY` / `DASHSCOPE_BASE_URL` 仍在 `.env` 里，但配置层没有引用。
+> ✅ **结论：视觉功能正常工作，但已经不是走本文这套配置了——是被 Hermes 的原生路由接管了。**
+> 🔴 **重要：不要照本文恢复 `auxiliary.vision`，那会让视觉能力降级。**
+>
+> ### 为什么会自动切换
+>
+> `agent/image_routing.py` 的 `decide_image_input_mode()` 判定顺序：
+> 1. `agent.image_input_mode` 若不是 `auto` → 直接用该值；
+> 2. **若显式配了 `auxiliary.vision` → 强制返回 `"text"`**（代理视觉：图先转文字）；
+> 3. 否则 → 查主模型是否支持视觉，支持则 `"native"`（图直接内联给主模型），不支持才 `"text"`。
+>
+> 当前 `image_input_mode: auto` 且**没有** `auxiliary.vision`，主模型 `deepseek-v4-flash` 支持视觉 → **走 native**。
+>
+> ### 日志证据（`/opt/data/logs/gateway.log`）
+>
+> ```
+> 2026-07-29  Image routing: text (mode=text).  Pre-analyzing via vision_analyze.   ← 本文配置生效期
+> 2026-10-06  Image routing: native (model supports vision). attached inline.       ← 切换点
+> 2026-11-05  Image routing: native ...
+> 2026-11-10  Image routing: native ...
+> 2026-11-12  Image routing: native ... 3 image(s) will be attached inline.
+> ```
+>
+> 2026-10-06 的 config 重建意外把视觉从「代理模式」升级成了「原生模式」——**效果更好**：文字转述会丢细节（表格数字、界面元素），内联是模型直接看图。
+>
+> ### 各项状态
 >
 > | 内容 | 状态 |
 > |:--|:--|
 > | 主模型 `deepseek-v4-flash` + provider `deepseek` | ✅ 仍一致 |
-> | `providers.alibaba` + `auxiliary.vision` 那两段配置 | 🔴 **线上不存在，需重新配置才会生效** |
-> | 「`auxiliary.vision` 不能显式写空 `api_key`」这个坑 | ✅ **经验仍然有效**，是本文最有价值的部分 |
-> | 额度表（qwen3.7-plus 250万/30天 等） | ⚠️ 未复核，需登录百炼控制台确认 |
-> | 故障切换流程 | 🔴 前提（已配置 vision 路由）不成立，流程本身无从执行 |
-> | 额度检查 cron `04bc8be14a6f`（每 7 天） | ⚠️ **任务仍在跑，但它检查的路由已不在配置里**——要么恢复配置，要么停掉这个任务 |
+> | `providers.alibaba` + `auxiliary.vision` 两段配置 | ⚪ **已移除，且不建议恢复**（会强制降级为 text 模式）|
+> | 「`auxiliary.vision` 不能显式写空 `api_key`（否则 401）」 | ✅ **经验仍有效**——将来若主模型换成不支持视觉的、需要切回 text 模式时，这条是必读项 |
+> | 额度表 | ⚠️ 未复核；见下条 |
+> | 故障切换流程 | ⚪ 不再适用（当前不走 DashScope）|
+> | 配额检查 cron `04bc8be14a6f` | 🔴 **已于 2026-11-18 暂停**（`no_agent` 脚本空转，DashScope 零调用）|
 >
-> **待决策**：是否恢复 DashScope 视觉路由。恢复则照第三节原文重新写入 `config.yaml`；不恢复则应停掉配额检查 cron。
+> ### 保留价值
+>
+> DashScope 凭据（`.env` 的 `DASHSCOPE_API_KEY` / `DASHSCOPE_BASE_URL`）**保留不动**——它是**备用视觉通道**。若哪天主模型换成不支持视觉的、或 native 出问题，照第三节配回即可（注意第 2 条会强制切 text 模式）。
+>
+> ### 教训
+>
+> **判断功能是否可用，要看运行日志，不能只看配置文件。** 本次复核曾因 config 里找不到 `auxiliary.vision` 而误判「视觉功能可能已损坏」，实际是 auto 路由选了更优路径。配置缺失 ≠ 功能缺失。
 
 ## 背景
 

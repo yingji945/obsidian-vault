@@ -6,8 +6,15 @@
 
 ## 根因
 
+> ⚠️ **定位方式（2026-11-19 复核）**：不要按行号定位——`gateway/run.py` 每次发版都会变。用**函数特征**搜索：
+> ```bash
+> grep -n 'tool_progress_enabled' gateway/run.py
+> grep -n 'progress_mode' gateway/run.py
+> ```
+> 原笔记记的「约 L14268」已失效，仅作历史参考。
+
 ```python
-# gateway/run.py 中的逻辑（约 L14268）：
+# gateway/run.py 中对 tool_progress 的解析逻辑：
 progress_mode = (
     _env_tp
     if _env_tp and not _tool_progress_configured

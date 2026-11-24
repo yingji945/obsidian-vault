@@ -337,6 +337,8 @@ end as new_user_pay_money
 | 6 | **周边商品**（`one_category_name = '周边商品'`）在 `new_*` 口径下分摊额=0，且 `order_category_cnt` 是「非周边商品数」 |
 | 7 | 枚举汇总（来自字段注释）：`order_cmdty_situation` 1正常/2损耗/3换货 · `order_type` 外卖/自取/自助 · `exp_disp_type` 1配送人接单/2门店指派（预留） · `pay_from` 微信/支付宝/银联（配置中心） · `group_order` 0普通/1拼单 · `shop_level` 快取店/悠享店/外卖厨房/快闪店/瑞即购/企业内部店/旗舰店 · `coop_pattern` 直营/代理 · `city_tier` 0新一线/1一线/2二线/3三线/4四线 · `cmdty_mode` 现制/外购 · `package_type` 1自营套餐/2渠道套餐 · `package_sub_type` 1预存套餐 · `voucher_type` 1优惠券/2咖啡库券/3阶梯次卡 · `is_custome`/`is_gift` 0否/1是 |
 | 8 | **渠道四层 + 三方场域**：`first~fourth_channel_*` 来自两处（`cb` 提供 fourth、`cl` 提供一二三级），做渠道归因时注意字段来源不同表 |
+| 9 | 🔴 **一单可带多个渠道值**：实测私域有 2,437 单同时带「交易渠道」和「引流渠道」两个 `second_channel_name` → **二级加总 > 一级去重**。统计订单量前必须 `group by dt, order_id` + `MAX(channel_name)` 钉唯一渠道，否则虚高。详见 [[渠道层级总览]] |
+| 10 | 🎯 **套餐类型有正式字段**：`package_type` = **1自营套餐 / 2渠道套餐**。区分「私域自有套餐（PF，`package_type=1`）」和「外卖渠道套餐（CHPF，`package_type=2`）」**优先用这个字段**，不要用 `package_code LIKE 'PF%' / 'CHPF%'` 前缀匹配 |
 
 ---
 
@@ -384,6 +386,7 @@ group by 1,2,3
 - **同属门店业务域**：
   - [[dwm_mg_order_cmdty_market_wide_d_inc]] —— 订单商品基础表（**本视图上游 `oc`**，159 字段底座；⚠️ `cmdty_income_amt` 同名陷阱见第三/四节）
   - [[dwm_mg_order_cmdty_channel_bridge_d_inc]] —— 订单商品归属渠道桥接表（**本视图上游 `cb`**）
+  - [[渠道层级总览]] —— 🧭 **本表四级渠道字段的实测取值、渠道树、一单多渠道的坑与标准写法**（2026-11-23 实测）
 - **易混淆（务必区分）**：
   - [[dws_eorder_eorder_commodity_d_his_combine]] —— 电商商城（即享）订单商品，**非门店**
   - [[dws_eorder_eorder_d_his_combine]] —— 电商商城订单头
